@@ -1,8 +1,8 @@
-# School Excercies
+# React Smcebi Chat
 
-This repository contains my University Excercises that I make
+React app for java chat application
 
 ## History:
 
-##### Date 16.10.2017:
-  - Solve Maze excercise finds a way in Maze from StartPoint to EndPoint
+##### Date 24.11.2017:
+  - Initial commit, update packages
