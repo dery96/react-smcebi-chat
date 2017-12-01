@@ -1,0 +1,22 @@
+@import "./source/scss/base/_variable";
+
+.footer-container {
+  background: $footer-bg-color;
+  padding-top: 1.2em;
+
+  footer {
+      .row {
+          justify-content: space-between;
+      }
+    color: $footer-font-color;
+
+    .copyright {
+      padding: 0.4em;
+
+      .author {
+        color: $footer-font-color;
+        font-weight: 800;
+      }
+    }
+  }
+}

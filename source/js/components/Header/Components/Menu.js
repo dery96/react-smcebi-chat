@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import './FooterMenu.scss';
+import './Menu.scss';
 
 
-class FooterMenu extends Component {
+class Menu extends Component {
   render() {
     return (
       <ul className="col-4 footer-menu">
@@ -12,8 +12,7 @@ class FooterMenu extends Component {
         <li className="menu-item">Profile</li>
       </ul>
     );
-    
   }
 }
 
-export default FooterMenu;
+export default Menu;

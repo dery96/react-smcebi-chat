@@ -1,0 +1,19 @@
+@import "./source/scss/base/_variable";
+
+ul.menu {
+  list-style-type: none;
+  display: flex;
+  .menu-item {
+    margin-right: 5px;
+    padding: .4em .6em .4em .6em;
+    &:last-child {
+      margin-right: 0;
+    }
+    &:hover, &:hover:active, &:active, &:focus, &:focus:active, &:focus:hover {
+      border-radius: .2em;
+      background-color: $light;
+      color: black;
+      font-weight: 500;
+    }
+  }
+}

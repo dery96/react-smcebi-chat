@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
-import { routeCodes } from 'config/routes';
+import React, {Component} from 'react';
+import {NavLink} from 'react-router-dom';
+import {routeCodes} from 'config/routes';
 import workAndCoLogoImg from '../../../assets/img/workco-logo.svg';
 
 export default class Menu extends Component {
@@ -18,14 +18,14 @@ export default class Menu extends Component {
             activeClassName='Menu-link--active'
             className='Menu-link'
             exact
-            to={ routeCodes.DASHBOARD }
+            to={routeCodes.DASHBOARD}
           >
             Home
           </NavLink>
           <NavLink
             activeClassName='Menu-link--active'
             className='Menu-link'
-            to={ routeCodes.ABOUT }
+            to={routeCodes.ABOUT}
           >
             About
           </NavLink>
