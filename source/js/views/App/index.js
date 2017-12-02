@@ -10,10 +10,11 @@ export default class App extends Component {
     return (
       <div className='App'>
         <Header />
-        {/*<Menu />*/}
-
-        <div className='Page'>
-          <Routes />
+        <div className='container'>
+            <Menu/>
+            <div className='Page'>
+              <Routes />
+            </div>
         </div>
         <Footer />
       </div>

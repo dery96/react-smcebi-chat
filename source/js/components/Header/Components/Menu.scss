@@ -1,19 +1,25 @@
 @import "./source/scss/base/_variable";
 
-ul.menu {
-  list-style-type: none;
+.menu {
   display: flex;
+  padding-left: 0;
+  margin-bottom: 0;
   .menu-item {
     margin-right: 5px;
-    padding: .4em .6em .4em .6em;
+    margin-left: 5px;
+    padding: .2em .6em .3em .2em;
+    color: $white;
+    cursor: pointer;
     &:last-child {
       margin-right: 0;
     }
-    &:hover, &:hover:active, &:active, &:focus, &:focus:active, &:focus:hover {
-      border-radius: .2em;
+    &:hover, &:hover:active, &:active, &:focus, &:focus:active, &:focus:hover, .menu-item-active {
+      border-radius: .6em;
+      padding: .2em 1em .2em 1em;
       background-color: $light;
       color: black;
       font-weight: 500;
+      text-decoration: none;
     }
   }
 }

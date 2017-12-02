@@ -1,17 +1,19 @@
-$light: #F4F5F6;
+$light: #F8F8F8;
 $yellow: #E4B86D;
 $dark: #39495A;
+// $dark #F4F5F6
+$darker: #273039;
 
-$body-bg-color: $light;
+$white: #fff;
+
+$body-bg-color: $white;
 $body-text-color: #000000;
 
 $header-bg-color: #111111;
-$header-font-color: #light;
+$header-font-color: $light;
 
 $footer-bg-color: #111111;
 $footer-font-color: $light;
 
 $footer-active-color: $yellow;
 $footer-focus-color: $yellow;
-
-

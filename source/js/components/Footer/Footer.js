@@ -9,8 +9,8 @@ class Footer extends Component {
           <footer className='container'>
               <div className='row'>
                   <FooterMenu />
-                  <div className='col-4 copyright'>
-                      Made by a <a href="https://github.com/dery96/" className='author'>Dominik Szyja</a> Copyright 2017.
+                  <div className='copyright'>
+                      Made by a <a href="https://github.com/dery96/" className='author'>Dominik Szyja</a> Copyright 2017
                   </div>
               </div>
           </footer>
