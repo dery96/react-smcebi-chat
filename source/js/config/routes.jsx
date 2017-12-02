@@ -7,7 +7,7 @@ import Channels from 'views/Channels/Channels';
 import About from 'views/About';
 import Profile from 'views/Profile/Profile';
 import Login from 'views/Login/Login';
-import Register from 'views/Login/Register';
+import Register from 'views/Register/Register';
 
 const publicPath = '/';
 

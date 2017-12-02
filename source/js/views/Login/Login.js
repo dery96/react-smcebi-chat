@@ -1,17 +1,20 @@
 import React, {Component} from 'react';
+import {NavLink} from 'react-router-dom';
+import {routeCodes} from 'config/routes';
+
 import './Login.scss';
+
+import Button from '../../components/Button/Button';
 
 class Login extends Component {
   render() {
     return (
         <div className="login-container container">
-            <div className="panel-login row">
-                <div className="col-4">
+            <div className="row row-center">
+                <div className="panel-login col-6">
                     <h2>Login</h2>
                     <hr/>
-                    <button className="btn btn-dark">
-                        Login
-                    </button>
+                    <Button label="Login" />
                     <a href="href">
                         forgot your Password?
                     </a>
@@ -20,12 +23,17 @@ class Login extends Component {
                     </a>
                 </div>
             </div>
-            <div className="outer row">
+            <div className="outer row row-center">
                 <div className="no-account">
                   Don't have account?
-                  <a href="href">
+                  <NavLink
+                    activeClassName='Menu-link--active'
+                    className='Menu-link'
+                    exact
+                    to={routeCodes.REGISTER}
+                  >
                     Sign up!
-                  </a>
+                  </NavLink>
                 </div>
             </div>
         </div>

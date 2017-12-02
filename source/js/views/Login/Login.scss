@@ -1,7 +1,24 @@
+@import "./source/scss/base/_variable";
 .login-container {
     margin-top: 30vh;
     margin-bottom: 30vh;
-    .login {
-
+    .panel-login {
+        background: $dark;
+        color: $light;
+        padding: 1em;
+        margin-bottom: .4em;
+        border-radius: .5em;
+        hr {
+            background: $light;
+        }
+        button {
+            background-color: $darker;
+            border-radius: 1em;
+            padding-left: 5em;
+            padding-right: 5em;
+            color: $light;
+            cursor: pointer;
+        }
+        justify-content: center;
     }
 }
