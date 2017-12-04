@@ -22,7 +22,7 @@ export const routeCodes = {
   REGISTER: `${ publicPath }register`,
 };
 
-const RouteDefaultLayout = ({ component, ...rest }) => {
+const RouteLayout = ({ component, ...rest }) => {
   return (
     <div>
       <Header />
@@ -46,10 +46,10 @@ const RouteWithoutLayout = ({ component, ...rest }) => {
 
 export default () => (
   <Switch>
-    <RouteDefaultLayout exact path={ publicPath } component={ Dashboard } />
-    <RouteDefaultLayout path={ routeCodes.CHANNELS } component={ Channels } />
-    <RouteDefaultLayout path={ routeCodes.ABOUT } component={ About } />
-    <RouteDefaultLayout path={ routeCodes.PROFILE } component={ Profile } />
+    <RouteLayout exact path={ publicPath } component={ Dashboard } />
+    <RouteLayout path={ routeCodes.CHANNELS } component={ Channels } />
+    <RouteLayout path={ routeCodes.ABOUT } component={ About } />
+    <RouteLayout path={ routeCodes.PROFILE } component={ Profile } />
     <RouteWithoutLayout path={ routeCodes.LOGIN } component={ Login } />
     <RouteWithoutLayout path={ routeCodes.REGISTER } component={ RegisterPage } />
     <Route path='*' component={ NotFound } />

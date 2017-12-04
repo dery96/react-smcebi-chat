@@ -9,44 +9,45 @@ class Login extends Component {
   render() {
     return (
       <div className='login-container'>
-        <div className='row row-center'>
-          <div className='col-4'>
-            <div className='panel-login'>
-              <h2>Login</h2>\
-              <hr />
-              <LoginForm />
-
-
-
-              <NavLink
-                className='Menu-link'
-                exact
-                to={ routeCodes.DASHBOARD }
-              >
-                forgot your Password?
-              </NavLink>
-
-              <NavLink
-                className='Menu-link'
-                exact
-                to={ routeCodes.DASHBOARD }
-              >
-                - Back to main site
-              </NavLink>
+          <div className='row row-center'>
+              <div className='panel-login col-4'>
+                  <div>
+                      <h2>Login</h2>
+                      <hr />
+                      <LoginForm />
+                <div className='row row-center'>
+                    <div className='col middle'>
+                      <NavLink
+                        className='Menu-link'
+                        exact
+                        to={ routeCodes.DASHBOARD }
+                      >
+                        - Back to main site
+                      </NavLink>
+                      <NavLink
+                        className='Menu-link'
+                        exact
+                        to={ routeCodes.DASHBOARD }
+                      >
+                        forgot your Password?
+                      </NavLink>
+                    </div>
+                </div>
             </div>
-
-          <div className='outer row row-center'>
-              <p>Don't have account?</p>
-              <NavLink
-                className='Menu-link'
-                exact
-                to={ routeCodes.REGISTER }
-              >
-                Sign up!
-              </NavLink>
           </div>
-          </div>
-      </div>
+        </div>
+        <div className='row row-center'>
+            <div className='outer col-5'>
+                <p className=''>Don't have account?</p>
+                <NavLink
+                  className='Menu-link'
+                  exact
+                  to={ routeCodes.REGISTER }
+                >
+                  Sign up!
+                </NavLink>
+            </div>
+        </div>
       </div>
     );
   }

@@ -1,24 +1,46 @@
 @import "./source/scss/base/_variable";
+body {
+    background: #111 !important;
+}
 .login-container {
-    margin-top: 30vh;
-    margin-bottom: 30vh;
-    .panel-login {
-        background: $dark;
-        color: $light;
-        padding: 1em;
-        margin-bottom: .4em;
-        border-radius: .5em;
-        hr {
-            background: $light;
-        }
-        button {
-            background-color: $darker;
-            border-radius: 1em;
-            padding-left: 5em;
-            padding-right: 5em;
-            color: $light;
-            cursor: pointer;
-        }
-        justify-content: center;
+  margin-top: 15vh;
+  margin-bottom: 30vh;
+  .panel-login {
+    // .row {
+    //     justify-content: center;
+    //     align-items: center;
+    // }
+    background: $dark;
+    color: $light;
+    padding: 1em;
+    margin-bottom: .4em;
+    border-radius: .2em;
+    hr {
+      background: $light;
     }
+    button {
+      background-color: $darker;
+      width: 100%;
+      color: $light;
+      cursor: pointer;
+      margin: 0 auto;
+    }
+    .middle {
+        display: flex;
+        justify-content: space-between;
+        color: $light;
+    }
+  }
+  justify-content: center;
+  align-items: center;
+  .outer {
+      p {
+          color: $light;
+          padding-right: .4em;
+      }
+      display: flex;
+      margin-right: 0;
+      margin-left: 0;
+      justify-content: center;
+  }
 }
