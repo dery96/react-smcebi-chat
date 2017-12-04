@@ -11,7 +11,7 @@ class Login extends Component {
     return (
         <div className="login-container container">
             <div className="row row-center">
-                <div className="panel-login col-6">
+                <div className="panel-login">
                     <h2>Login</h2>
                     <hr/>
                     <Button label="Login" />

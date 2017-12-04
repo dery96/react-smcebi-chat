@@ -7,7 +7,7 @@ import Channels from 'views/Channels/Channels';
 import About from 'views/About';
 import Profile from 'views/Profile/Profile';
 import Login from 'views/Login/Login';
-import Register from 'views/Register/Register';
+import RegisterPage from 'views/RegisterPage/RegisterPage';
 
 const publicPath = '/';
 
@@ -27,7 +27,7 @@ export default () => (
     <Route path={ routeCodes.ABOUT } component={ About } />
     <Route path={ routeCodes.PROFILE } component={ Profile } />
     <Route path={ routeCodes.LOGIN } component={ Login } />
-    <Route path={ routeCodes.REGISTER } component={ Register } />
+    <Route path={ routeCodes.REGISTER } component={ RegisterPage } />
     <Route path='*' component={ NotFound } />
   </Switch>
 );
