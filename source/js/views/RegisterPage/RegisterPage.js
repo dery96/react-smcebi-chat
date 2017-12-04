@@ -5,6 +5,8 @@ import { userRegisterRequest } from '../../actions/registerActions';
 
 import RegisterForm from './RegisterForm';
 
+
+
 class RegisterPage extends Component {
   render() {
     const { userRegisterRequest } = this.props;

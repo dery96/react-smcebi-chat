@@ -5,7 +5,7 @@ class Button extends Component {
   render() {
     return (
         <button
-          className="btn btn-default"
+          className="btn btn-primary"
           onClick={this.props.handleClick}>{this.props.label}</button>
     );
   }

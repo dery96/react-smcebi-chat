@@ -20,21 +20,21 @@ class FooterMenu extends Component {
           <NavLink
             activeClassName='menu-item-active'
             className='menu-item'
-            to={routeCodes.ABOUT}
+            to={routeCodes.CHANNELS}
           >
             Channels
           </NavLink>
           <NavLink
             activeClassName='menu-item-active'
             className='menu-item'
-            to={routeCodes.CHANNELS}
+            to={routeCodes.ABOUT}
           >
             About
           </NavLink>
           <NavLink
             activeClassName='menu-item-active'
             className='menu-item'
-            to={routeCodes.CHANNELS}
+            to={routeCodes.PROFILE}
           >
             Profile
           </NavLink>

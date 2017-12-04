@@ -8,6 +8,8 @@ import About from 'views/About';
 import Profile from 'views/Profile/Profile';
 import Login from 'views/Login/Login';
 import RegisterPage from 'views/RegisterPage/RegisterPage';
+import Footer from '../components/Footer/Footer';
+import Header from '../components/Header/Header';
 
 const publicPath = '/';
 
@@ -17,17 +19,40 @@ export const routeCodes = {
   ABOUT: `${ publicPath }about`,
   PROFILE: `${ publicPath }profile`,
   LOGIN: `${ publicPath }login`,
-  REGISTER: `${ publicPath }register`
+  REGISTER: `${ publicPath }register`,
+};
+
+const RouteDefaultLayout = ({ component, ...rest }) => {
+  return (
+    <div>
+      <Header />
+      <div className='container'>
+        <Route { ...rest } render={ () => React.createElement(component) } />
+      </div>
+      <Footer />
+    </div>
+  );
+};
+
+const RouteWithoutLayout = ({ component, ...rest }) => {
+  return (
+    <div className='container'>
+      <div className='Page'>
+        <Route { ...rest } render={ () => React.createElement(component) } />
+      </div>
+    </div>
+  );
 };
 
 export default () => (
   <Switch>
-    <Route exact path={ publicPath } component={ Dashboard } />
-    <Route path={ routeCodes.CHANNELS } component={ Channels } />
-    <Route path={ routeCodes.ABOUT } component={ About } />
-    <Route path={ routeCodes.PROFILE } component={ Profile } />
-    <Route path={ routeCodes.LOGIN } component={ Login } />
-    <Route path={ routeCodes.REGISTER } component={ RegisterPage } />
+    <RouteDefaultLayout exact path={ publicPath } component={ Dashboard } />
+    <RouteDefaultLayout path={ routeCodes.CHANNELS } component={ Channels } />
+    <RouteDefaultLayout path={ routeCodes.ABOUT } component={ About } />
+    <RouteDefaultLayout path={ routeCodes.PROFILE } component={ Profile } />
+    <RouteWithoutLayout path={ routeCodes.LOGIN } component={ Login } />
+    <RouteWithoutLayout path={ routeCodes.REGISTER } component={ RegisterPage } />
     <Route path='*' component={ NotFound } />
   </Switch>
 );
+
