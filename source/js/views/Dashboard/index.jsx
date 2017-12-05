@@ -7,6 +7,7 @@ import SquareSvg from '../../../assets/svg/square.svg';
 import TriangleSvg from '../../../assets/svg/triangle.svg';
 import bookImg from '../../../assets/img/book2.jpg';
 
+import './Dashboard.scss';
 @connect(state => ({
   asyncData: state.app.get('asyncData'),
   asyncError: state.app.get('asyncError'),

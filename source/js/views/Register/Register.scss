@@ -1,0 +1,32 @@
+@import "./source/scss/base/_variable";
+
+.login-bg {
+    background: linear-gradient(rgba(0, 0, 0, .2), rgba(255, 255, 255, .1)), url(../../../assets/img/login-dark.jpg) center center !important;
+    background-size: cover;
+}
+
+.normal-bg {
+    background-color: #fff !important;
+}
+
+.register-container {
+    .panel {
+        color: white;
+        h2 {
+            margin-bottom: 1em;
+        }
+        .btn-dark {
+            background-color: rgba(68, 113, 135, 1);
+            width: 100%;
+            color: $white;
+            cursor: pointer;
+            &.active {
+                background-color: rgba(68, 113, 135, .65);
+            }
+        }
+    .back {
+        color: $white !important;
+    }
+    }
+
+}

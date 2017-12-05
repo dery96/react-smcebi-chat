@@ -7,7 +7,7 @@ import Channels from 'views/Channels/Channels';
 import About from 'views/About';
 import Profile from 'views/Profile/Profile';
 import Login from 'views/Login/Login';
-import RegisterPage from 'views/RegisterPage/RegisterPage';
+import Register from 'views/Register/Register';
 import Footer from '../components/Footer/Footer';
 import Header from '../components/Header/Header';
 
@@ -51,8 +51,7 @@ export default () => (
     <RouteLayout path={ routeCodes.ABOUT } component={ About } />
     <RouteLayout path={ routeCodes.PROFILE } component={ Profile } />
     <RouteWithoutLayout path={ routeCodes.LOGIN } component={ Login } />
-    <RouteWithoutLayout path={ routeCodes.REGISTER } component={ RegisterPage } />
+    <RouteWithoutLayout path={ routeCodes.REGISTER } component={ Register } />
     <Route path='*' component={ NotFound } />
   </Switch>
 );
-

@@ -50,7 +50,7 @@ class RegisterForm extends Component {
       <form onSubmit={ this.onSubmit }>
 
         <div className='form-group'>
-          <label className='control-label mt-3'>Username:</label>
+          <label className='control-label'>Username:</label>
           <input
             value={ this.state.login }
             onChange={ this.onChange }
@@ -59,7 +59,7 @@ class RegisterForm extends Component {
             className='form-control'
           />
 
-          <label htmlFor='' className='control-label mt-3'>Nickname:</label>
+          <label htmlFor='' className='control-label'>Nickname:</label>
           <input
             value={ this.state.nickname }
             onChange={ this.onChange }
@@ -68,7 +68,7 @@ class RegisterForm extends Component {
             className='form-control'
           />
 
-          <label htmlFor='' className='control-label mt-3'>Password:</label>
+          <label htmlFor='' className='control-label'>Password:</label>
           <input
             value={ this.state.password }
             onChange={ this.onChange }
@@ -77,7 +77,7 @@ class RegisterForm extends Component {
             className='form-control'
           />
 
-          <label className='control-label mt-3'>Confirm Password:</label>
+          <label className='control-label'>Confirm Password:</label>
           <input
             value={ this.state.passwordConfirmation }
             onChange={ this.onChange }
@@ -89,7 +89,7 @@ class RegisterForm extends Component {
           <label className='control-label mt-4 mr-4'>Gender:</label>
 
           <div className='btn-group' data-toggle='buttons'>
-            <label className={ (this.state.gender === 'M') ? 'btn btn-primary active' : 'btn btn-primary' }>
+            <label className={ (this.state.gender === 'M') ? 'btn btn-dark active' : 'btn btn-dark' }>
               <input
                 key={ 0 }
                 value='M'
@@ -99,7 +99,7 @@ class RegisterForm extends Component {
               /> Male
             </label>
 
-            <label className={ (this.state.gender === 'F') ? 'btn btn-primary active' : 'btn btn-primary' } >
+            <label className={ (this.state.gender === 'F') ? 'btn btn-dark active' : 'btn btn-dark' } >
               <input
                 key={ 1 }
                 value='F'
@@ -111,7 +111,7 @@ class RegisterForm extends Component {
           </div>
         </div>
         <div className='form-group'>
-          <button className='btn btn-primary'>
+          <button className='btn'>
             Sign up
           </button>
         </div>
@@ -125,4 +125,3 @@ RegisterForm.propTypes = {
 };
 
 export default RegisterForm;
-
