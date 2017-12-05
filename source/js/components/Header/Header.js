@@ -13,8 +13,12 @@ class Header extends Component {
       <div className="header-container">
         <header className="container">
           <div className='row'>
-            <div className="logo">
+              <div className="logo">
+              <NavLink
+                to={routeCodes.DASHBOARD}
+              >
                 SMCEBI chat <figcaption>for the people.</figcaption>
+              </NavLink>
             </div>
             <nav>
                 <Menu />

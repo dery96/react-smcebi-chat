@@ -1,42 +1,53 @@
 @import "./source/scss/base/_variable";
+
 body {
-    background: #111 !important;
+    background: linear-gradient(rgba(0, 0, 0, .1), rgba(255, 255, 255, .1)), url(../../../assets/img/login-dark.jpg) center center !important;
+    background-size: cover;
 }
+
 .login-container {
-  margin-top: 15vh;
+  margin-top: 25vh;
   margin-bottom: 30vh;
   .panel-login {
-    // .row {
-    //     justify-content: center;
-    //     align-items: center;
-    // }
-    background: $dark;
+    background: rgba(17,26,34, .5);
     color: $light;
     padding: 1em;
     margin-bottom: .4em;
     border-radius: .2em;
-    hr {
-      background: $light;
-    }
     button {
-      background-color: $darker;
+      margin-top: 1em;
+      background-color: #447187;
       width: 100%;
       color: $light;
       cursor: pointer;
-      margin: 0 auto;
+    }
+    .form-control {
+        border: 1px solid rgba(0,0,0,.28);
+        background-color: rgba(17,26,34, .2);
+        color: $light;
     }
     .middle {
         display: flex;
         justify-content: space-between;
         color: $light;
+        a {
+            color: #EBEFEF;
+            &:active {
+                color: #EBEFEF;
+            }
+        }
     }
   }
   justify-content: center;
   align-items: center;
   .outer {
       p {
-          color: $light;
+          color: #EBEFEF;
           padding-right: .4em;
+      }
+      a {
+          font-weight: bold;
+          text-decoration: underline;
       }
       display: flex;
       margin-right: 0;

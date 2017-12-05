@@ -31,7 +31,7 @@ class LoginForm extends Component {
     return (
       <form onSubmit={ this.onSubmit }>
         <div className='form-group' >
-          <label className='control-label mt-4'>Username:</label>
+          <label className='control-label mt-4'>Username</label>
           <input
             value={ this.state.login }
             onChange={ this.onChange }
@@ -42,7 +42,7 @@ class LoginForm extends Component {
         </div>
 
         <div className='form-group' >
-          <label className='control-label mt-2 mb-2'>Password:</label>
+          <label className='control-label mt-2 mb-2'>Password</label>
           <input
             value={ this.state.password }
             onChange={ this.onChange }
@@ -53,7 +53,7 @@ class LoginForm extends Component {
         </div>
 
         <div className='form-group'>
-          <button className='btn btn-primary btn-center'>
+          <button className='btn'>
             Sign in
           </button>
         </div>

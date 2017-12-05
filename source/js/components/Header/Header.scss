@@ -7,12 +7,15 @@
             justify-content: space-between;
             align-items: center;
         }
-        padding-top: 4em;
+        padding-top: 2em;
         padding-bottom: 1.4em;
         // padding-top: .6em;
         // padding-bottom: .6em;
         color: $light;
         .logo {
+            a {
+                color: $white;
+            }
             padding-left: 15px;
             padding-right: 15px;
             text-transform: uppercase;
@@ -45,7 +48,7 @@
             }
             @media (min-width: 992px) {
                 p.guest {
-                    margin-left: 1em;
+                    margin-left: 2em;
                     font-size: 0.9rem;
                 }
             }

@@ -12,21 +12,16 @@ class Login extends Component {
           <div className='row row-center'>
               <div className='panel-login col-4'>
                   <div>
-                      <h2>Login</h2>
-                      <hr />
+                      <h2>Login:</h2>
                       <LoginForm />
                 <div className='row row-center'>
                     <div className='col middle'>
                       <NavLink
-                        className='Menu-link'
-                        exact
                         to={ routeCodes.DASHBOARD }
                       >
                         - Back to main site
                       </NavLink>
                       <NavLink
-                        className='Menu-link'
-                        exact
                         to={ routeCodes.DASHBOARD }
                       >
                         forgot your Password?
@@ -40,8 +35,6 @@ class Login extends Component {
             <div className='outer col-5'>
                 <p className=''>Don't have account?</p>
                 <NavLink
-                  className='Menu-link'
-                  exact
                   to={ routeCodes.REGISTER }
                 >
                   Sign up!

@@ -4,31 +4,23 @@
   display: flex;
   padding-left: 0;
   margin-bottom: 0;
+  margin-top: .1em;
   .menu-item {
     margin-right: 5px;
     margin-left: 5px;
-    padding: .2em .6em .3em .2em;
     color: $white;
     cursor: pointer;
     &:last-child {
       margin-right: 0;
     }
     &:hover, &:hover:active, &:active, &:focus, &:focus:active, &:focus:hover {
-      border-radius: .6em;
-      padding: .2em 1em .2em 1em;
-      background-color: $light;
-      color: black;
-      font-weight: 500;
-      text-decoration: none;
+      font-weight: bold;
+      text-decoration: underline;
     }
 
   }
   .menu-item-active {
-      border-radius: .6em;
-      padding: .2em 1em .2em 1em;
-      background-color: $light;
-      color: black;
-      font-weight: 500;
-      text-decoration: none;      
+      font-weight: bold;
+      text-decoration: underline;
   }
 }
