@@ -19,7 +19,7 @@ export class ActiveUsers extends Component {
               <div className='channel-title'>
                   Online
               </div>
-              <div>
+              <div className='col'>
                   { this.state.userActive[1] }
                   { this.state.userActive[2] }
                   { this.state.userActive[3] }
