@@ -9,7 +9,7 @@ export class ChannelOperations extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      channelTitle: 'Looby',
+      channelTitle: 'Lobby',
       channelOwner: 1,
     }
   }
@@ -22,9 +22,7 @@ export class ChannelOperations extends Component {
       </div>
         <ChannelActions />
         <ChannelUsers />
-        <div className="col disconnect">
-            <button className="btn">Disconenct</button>
-        </div>
+        <button className="col disconnect btn">Disconenct</button>
      </div>
     );
   }

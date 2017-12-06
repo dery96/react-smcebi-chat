@@ -1,3 +1,24 @@
+@import "./source/scss/base/_variable";
 .channel-panel {
-  color: red;
+  .channel-title {
+      font-size: 1.15rem;
+      color: $light;
+      padding: .2em 15px .2em 15px;
+      margin-bottom: .4em;
+      background: rgba(248, 248, 248, .1);
+  }
+  .search-bar {
+      padding: 5px 15px 5px 15px;
+      input {
+          width: 100%;
+          border-radius: .2em;
+          padding: 3px;
+          border: 1px solid rgba(0,0,0,.28);
+          background-color: #light;
+          color: black;
+          &::-webkit-input-placeholder {
+              font-size: .9rem;
+          }
+      }
+  }
 }

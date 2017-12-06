@@ -15,7 +15,6 @@ export class ChannelUsers extends Component {
         <div>
             <div className='col channel-title'>Active Users:</div>
             <div className='col channel-users'>
-
                   <ul className=''>
                       <li>Huno92</li>
                       <li>PanAndrzej</li>

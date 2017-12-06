@@ -55,19 +55,55 @@ export default class Dashboard extends Component {
       <div className='row row-column dashboard'>
         <h1>Welcome</h1>
         <p>
-          Welcome, welcome to our chat application to use it you need to create new account. If you make it you'll receive great previelege to use this site
-          and chat with <strong>huno92</strong> and <strong>dery96</strong>. Remember to join conversation you need to find channel that interest you (or create new) then
-          you can talk till end of you silly life.
-        </p>
-        <h3>Documentation</h3>
-        <p className="">
-            That simple app is written using ReactJS libary and Redux that's for the front-end. We also managed to create simple Java server that handle
-            HTTP Request (something like Restful Web Api).
+          to our chat application to use it you need to create new account
         </p>
 
-        <p className="">
-            Visit our Site on <a href="" className="">Github</a> project.
-        </p>
+        <hr />
+
+        <h2>Examples</h2>
+
+        <h3>Synchronous action</h3>
+        <div className='Example'>
+          <p>Counter: { counter }</p>
+          <button onClick={ this.handleTestButtonClick }>
+            Increase
+          </button>
+        </div>
+
+        <h3>Async action example</h3>
+        <div className='Example'>
+          { asyncData &&
+            <p>
+              Date: { asyncData.date }<br />
+              Time: { asyncData.time }<br />
+              Miliseconds since epoch: { asyncData.milliseconds_since_epoch }
+            </p> }
+          { asyncLoading && <p>Loading...</p> }
+          { asyncError && <p>Error: { asyncError }</p> }
+          <button
+            disabled={ asyncLoading }
+            onClick={ this.handleAsyncButtonClick }
+          >
+            Get async data
+          </button>
+        </div>
+
+        <h3>Background image</h3>
+        <div className='Example'>
+          <div className='BackgroundImgExample' />
+        </div>
+
+        <h3>Image imported to the component</h3>
+        <div className='Example'>
+          <img src={ bookImg } alt='' className='ImgExample' />
+        </div>
+
+        <h3>SVGs imported as react components</h3>
+        <div className='Example'>
+          <CircleSvg style={ { marginRight: 10 } } />
+          <SquareSvg style={ { marginRight: 10 } } />
+          <TriangleSvg />
+        </div>
       </div>
     );
   }
