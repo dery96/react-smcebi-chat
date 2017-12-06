@@ -7,11 +7,12 @@ import './Channels.scss';
 
 function SwitchPanelControl(props) {
     return (
-        <div className='panel row'>
+        <div className='left-panel col-3'>
           {props.panel ? (
-            <ChannelPanel />
-          ) : (
             <ChannelOperations />
+
+          ) : (
+            <ChannelPanel />
           )}
         </div>
     );
@@ -42,20 +43,18 @@ class Channels extends Component {
   render() {
     return (
       <div className='channel'>
-        <div className='row'>
-            <div className="panel col-3">
-                <SwitchPanelControl panel={ this.state.panel } />
-            </div>
-            <Chat />
-        </div>
-        <div className="row">
-            <button
-                name='panel'
-                onClick={ this.onClick }
-            >
-                SwitchPanel
-            </button>
-        </div>
+          <div className='row'>
+              <SwitchPanelControl panel={ this.state.panel } />
+              <Chat />
+          </div>
+          <div className="row">
+              <button
+                  name='panel'
+                  onClick={ this.onClick }
+              >
+                  SwitchPanel
+              </button>
+          </div>
       </div>
 
     );

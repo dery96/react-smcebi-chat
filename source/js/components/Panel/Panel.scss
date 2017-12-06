@@ -1,8 +1,11 @@
 @import "./source/scss/base/_variable";
-.panel {
+.left-panel {
   background: $darker;
   border-radius: .2em;
-  padding-right: 15px;
-  padding-left: 15px;
   color: $white;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  .row {
+    
+  }
 }

@@ -1,0 +1,45 @@
+@import "./source/scss/base/_variable";
+.operations {
+    width: 100%;
+    .channel-title {
+        font-size: 1.25rem;
+        color: $light;
+        padding: .2em 15px .2em 20px;
+        margin-bottom: .2em;
+        background: rgba(248, 248, 248, .1);
+    }
+    .channel-actions {
+        text-align: left;
+        align-items: flex-start;
+        flex-direction: column;
+        margin-bottom: 0;
+        padding-left: .2em;
+        label {
+            padding: 0;
+            margin-bottom: 0;
+        }
+    }
+    .operations-title {
+        margin-top: .4em;
+    }
+    .channel-users {
+        margin-top: 1em;
+        span {
+            font-size: 1rem;
+            margin-top: .5em;
+        }
+        ul {
+            list-style-type: none;
+            padding-left: .2em;
+        }
+
+    }
+    .disconnect {
+        margin-top: 11em;
+        padding: 0;
+        button {
+            width: 100%;
+            border-radius:0;
+        }
+    }
+}
