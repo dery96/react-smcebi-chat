@@ -2,3 +2,7 @@
 body {
     background: $body-bg-color;
 }
+
+html, body {
+  min-height: 100vh;
+}

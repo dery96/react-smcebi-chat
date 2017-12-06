@@ -1,18 +1,26 @@
 import React, { Component } from 'react';
 
-class MessageBox extends Component {
+import { Message } from './components/Message/Message';
+import './MessageBox.scss';
+
+export class MessageBox extends Component {
 
   render() {
     return (
-      <div className="col">
-        // WEBSOCKET THAT ADD
-        // <Message author={ this.state.author }
-                    message={ this.state.message }
-                    date={ this.state.date }/>
-      </div>
+        <div className="row">
+            <Message />
+            <Message />
+            <Message />
+            <Message />
+        </div>
     );
   }
 
 }
 
 export default MessageBox;
+
+// WEBSOCKET THAT ADD
+// <Message author={ this.state.author }
+//            message={ this.state.message }
+//            date={ this.state.date }/>

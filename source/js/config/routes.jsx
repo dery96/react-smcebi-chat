@@ -25,9 +25,11 @@ export const routeCodes = {
 const RouteLayout = ({ component, ...rest }) => {
   return (
     <div>
-      <Header />
-      <div className='container'>
-        <Route { ...rest } render={ () => React.createElement(component) } />
+      <div className='content'>
+        <Header />
+        <div className='container'>
+          <Route { ...rest } render={ () => React.createElement(component) } />
+        </div>
       </div>
       <Footer />
     </div>

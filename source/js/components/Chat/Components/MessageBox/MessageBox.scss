@@ -1,3 +1,25 @@
-.mesasge-container {
-  
+@import "./source/scss/base/_variable";
+
+
+.message-box {
+  background: white;
+  border-radius: .2em;
+    .row {
+        flex-flow: column;
+        padding: 15px;
+    }
+    .send-area {
+        .row {
+            flex-direction: row;
+            padding-top: .3em;
+            padding-bottom: .4em;
+        }
+        button {
+            border-radius: 0;
+        }
+        .form-control {
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+    }
 }

@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
 
-class Chat extends Component {
+import { MessageBox } from './components';
+import { SendArea } from './components';
+export class Chat extends Component {
 
   render() {
     return (
-      <div></div>
-    );
+        <div className="message-box col">
+            <MessageBox />
+            <SendArea />
+        </div>
+);
   }
-
 }
 
 export default Chat;

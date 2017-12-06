@@ -52,7 +52,7 @@ export default class Dashboard extends Component {
     } = this.props;
 
     return (
-      <div className='Dashboard'>
+      <div className='row row-column dashboard'>
         <h1>Marvin</h1>
         <p>
           Boilerplate for kicking off React/Redux applications.

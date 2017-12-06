@@ -1,1 +1,25 @@
- 
+@import "./source/scss/base/_variable";
+
+.message {
+    padding-left: .2em;
+    margin-bottom: .4em;
+    &:last-child {
+        margin-bottom: 0;
+    }
+    .author {
+        font-size: .9rem;
+        font-weight: 600;
+        color: $darker;
+        padding-right: .3em;
+    }
+    .time {
+        font-size: .9rem;
+        color: $dark;
+    }
+    .text {
+        width: 100%;
+        line-height: 17px;
+        font-size: .97rem;
+        display: inline-block;
+    }
+}

@@ -1,0 +1,8 @@
+@import "./source/scss/base/_variable";
+.panel {
+  background: $darker;
+  border-radius: .2em;
+  padding-right: 15px;
+  padding-left: 15px;
+  color: $white;
+}
