@@ -64,6 +64,7 @@
   "dependencies": {
     "babel-polyfill": "^6.26.0",
     "es6-promise": "^4.1.1",
+    "expect": "^21.2.1",
     "express": "^4.16.2",
     "file-loader": "^1.1.5",
     "immutable": "^3.8.2",

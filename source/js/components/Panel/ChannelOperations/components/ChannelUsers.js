@@ -10,16 +10,21 @@ export class ChannelUsers extends Component {
     }
   }
 
+  renderUsers() {
+      return this.props.activeUser.map( (activeUser, index) => {
+          return (
+              <li key={index}> { activeUser } </li>
+          );
+      });
+  }
+
   render() {
     return (
         <div>
             <div className='col channel-title'>Active Users:</div>
             <div className='col channel-users'>
                   <ul className=''>
-                      <li>Huno92</li>
-                      <li>PanAndrzej</li>
-                      <li>Dawidus92</li>
-                      <li>Agnes</li>
+                      {}
                  </ul>
             </div>
         </div>

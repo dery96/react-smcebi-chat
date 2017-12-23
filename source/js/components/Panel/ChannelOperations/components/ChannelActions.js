@@ -15,7 +15,6 @@ export class ChannelActions extends Component {
                       <label className={ (this.state.channel === '1') ? 'btn active' : 'btn' }>
                         <input
                           key={ 0 }
-                          value='M'
                           onChange={ this.onChange }
                           type='radio'
                           name='gender'
@@ -25,7 +24,6 @@ export class ChannelActions extends Component {
                       <label className={ (this.state.channel === '2') ? 'btn active' : 'btn' } >
                         <input
                           key={ 1 }
-                          value='F'
                           onChange={ this.onChange }
                           type='radio'
                           name='gender'
@@ -35,7 +33,6 @@ export class ChannelActions extends Component {
                       <label className={ (this.state.channel === '3') ? 'btn active' : 'btn' } >
                         <input
                           key={ 1 }
-                          value='F'
                           onChange={ this.onChange }
                           type='radio'
                           name='gender'
@@ -44,7 +41,6 @@ export class ChannelActions extends Component {
                       <label className={ (this.state.channel === '3') ? 'btn active' : 'btn' } >
                         <input
                           key={ 1 }
-                          value='F'
                           onChange={ this.onChange }
                           type='radio'
                           name='gender'

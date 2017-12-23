@@ -25,6 +25,10 @@
       color: $light;
       cursor: pointer;
     }
+    .err {
+        font-size: .9rem;
+        color: red;
+    }
     .form-control {
         border: 1px solid rgba(0,0,0,.28);
         background-color: rgba(17,26,34, .2);

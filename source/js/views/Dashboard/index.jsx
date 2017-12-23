@@ -6,6 +6,7 @@ import CircleSvg from '../../../assets/svg/circle.svg';
 import SquareSvg from '../../../assets/svg/square.svg';
 import TriangleSvg from '../../../assets/svg/triangle.svg';
 import bookImg from '../../../assets/img/book2.jpg';
+import axios from 'axios';
 
 import './Dashboard.scss';
 @connect(state => ({
@@ -15,41 +16,23 @@ import './Dashboard.scss';
   counter: state.app.get('counter'),
 }))
 export default class Dashboard extends Component {
-  static propTypes = {
-    asyncData: PropTypes.object,
-    asyncError: PropTypes.string,
-    asyncLoading: PropTypes.bool,
-    counter: PropTypes.number,
-    // from react-redux connect
-    dispatch: PropTypes.func,
+
+  constructor(props) {
+    super(props);
+    this.state = {
+        data: '',
+        username: 'dery',
+        password: '111',
+    }
+    this.handleLoginClick.bind(this);
+
   }
 
-  constructor() {
-    super();
-
-    this.handleAsyncButtonClick = this.handleAsyncButtonClick.bind(this);
-    this.handleTestButtonClick = this.handleTestButtonClick.bind(this);
+  handleLoginClick() {
+    // e.preventDefault();
+    return console.log("aaaaaa");
   }
-
-  handleAsyncButtonClick() {
-    const { dispatch } = this.props;
-
-    dispatch(testAsync());
-  }
-
-  handleTestButtonClick() {
-    const { dispatch } = this.props;
-
-    dispatch(testAction());
-  }
-
   render() {
-    const {
-      asyncData,
-      asyncError,
-      asyncLoading,
-      counter,
-    } = this.props;
 
     return (
       <div className='row row-column dashboard'>
@@ -68,6 +51,11 @@ export default class Dashboard extends Component {
         <p className="">
             Visit our Site on <a href="" className="">Github</a> project.
         </p>
+        <button
+          onClick={ this.handleLoginClick }
+        >
+          Get async data
+        </button>
       </div>
     );
   }

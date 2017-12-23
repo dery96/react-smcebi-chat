@@ -1,9 +1,25 @@
 import React, { Component } from 'react';
+import queryForParams from '../../helpers';
 
 class Profile extends Component {
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            data: '',
+        }
+    }
+
+    componentDidMount() {
+        const data = {login: 'dery', password: '111'};
+        console.log(queryForParams(data))
+
+    }
   render() {
+      console.log("TRY DOSMTH!");
     return (
       <div className='profile'>
+          console.log("TRY DOSMTH!");
         <h1>About Marvin</h1>
 
         <p>
