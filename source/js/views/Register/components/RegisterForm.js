@@ -16,33 +16,18 @@ class RegisterForm extends Component {
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-    this.isValid = this.isValid.bind(this);
   }
 
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
 
-  isValid() {
-    const { errors, isValid } = validateInput(this.state);
-
-    if (!isValid) {
-      this.setState({errors});
-    }
-    return isValid;
-  }
-
   onSubmit(e) {
     e.preventDefault();
-    this.resetValidationStates();
+    if (isValid()) {
 
-    if (this.isValid()) {
-      this.setState({ errors: {}, isLoading: true });
-      this.props.userRegisterRequest(this.state).then(
-        () => {},
-        ({ data }) => this.setState({ errors: data, isLoading: false })
-      );
     }
+
   }
 
   render() {
@@ -121,7 +106,7 @@ class RegisterForm extends Component {
 }
 
 RegisterForm.propTypes = {
-  userRegisterRequest: PropTypes.func.isRequired,
+  // userRegisterRequest: PropTypes.func.isRequired,
 };
 
 export default RegisterForm;

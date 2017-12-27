@@ -21,8 +21,6 @@ export default class Dashboard extends Component {
     super(props);
     this.state = {
         data: '',
-        username: 'dery',
-        password: '111',
     }
     this.handleLoginClick.bind(this);
 

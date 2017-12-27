@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { NavLink } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import { routeCodes } from 'config/routes';
 // import { LoginValidation } from './LoginValidation';
@@ -17,48 +18,50 @@ function checkErrors(props) {
     );
 }
 
-function validation(props) {
-    if (!props.login || props.login.trim() === '') {
-        return 'You\'ve left this field empty'
-    }
-    if (!props.password || props.password.trim() === '') {
-        return 'You\'ve left this field empty'
-    }
-    return '';
-}
-
-class LoginForm extends Component {
+@connect(state => ({
+  login: state.app.get('login'),
+  loading: state.app.get('loading'),
+  user: state.app.get('user')
+}))
+export class LoginForm extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      login: '',
-      password: '',
-      error: false,
-      isLoading: false,
-      isLogged: false,
-      resultError: false,
-      loginError: false,
-      passwordError: false,
-    };
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.validation = this.validation.bind(this);
+    this.state = {
+        login: '',
+        password: '',
+    }
   }
 
+  validation(e) {
+      if (!props.login || props.login.trim() === '') {
+          return 'You\'ve left this field empty'
+      }
+      if (!props.password || props.password.trim() === '') {
+          return 'You\'ve left this field empty'
+      }
+      if (this.props.login.error) {
+          return 'You\'ve entered wrong username or password <strong>try again</strong>'
+      }
+      return ' ';
+  }
 
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
 
   onSubmit(e) {
+      const { dispatch, userLoginAction, user } = this.props;
     e.preventDefault();
-    console.log(this.state);
+    dispatch(userLoginAction(this.state.login, this.state.password))
   }
 
   render() {
     return (
       <form onSubmit={ this.onSubmit }>
-          { checkErrors(this.state.error) }
         <div className='form-group' >
           <label className='control-label mt-4'>Username</label>
           <input
@@ -69,7 +72,6 @@ class LoginForm extends Component {
             name='login'
             placeholder='Enter your login'
           />
-          { checkErrors(this.state.error) }
         </div>
 
         <div className='form-group' >
@@ -82,12 +84,12 @@ class LoginForm extends Component {
             name='password'
             placeholder='Enter your password'
           />
-          { checkErrors(this.state.error) }
         </div>
-
+        { this.props.login.error ? <span className='err'>You have entered wrong username or password!</span> : ''}
         <div className='form-group'>
           <button
               className='btn'
+              type='submit'
               >
             Sign up
           </button>
@@ -97,7 +99,15 @@ class LoginForm extends Component {
   }
 }
 
-LoginForm.propTypes = {};
+LoginForm.propTypes = {
+};
 LoginForm.defaultProps = {};
 
-export default LoginForm
+function mapStateToProps(state) {
+  return { user: state.user,
+           login: state.login,
+           loading: state.loading,
+       };
+}
+
+export default connect(mapStateToProps)(LoginForm)

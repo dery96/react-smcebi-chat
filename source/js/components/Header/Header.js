@@ -22,6 +22,7 @@ class Header extends Component {
             </div>
             <nav>
                 <Menu />
+                {}
                 <p className='guest'> You're guest want <NavLink
                       activeClassName='menu-item-active'
                       className='menu-item'

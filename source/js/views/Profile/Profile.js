@@ -1,25 +1,26 @@
 import React, { Component } from 'react';
-import queryForParams from '../../helpers';
+import queryForParams from '../../helpers/queryForParams';
 
 class Profile extends Component {
-    constructor(props) {
-        super(props)
+  constructor(props) {
+    super(props);
 
-        this.state = {
-            data: '',
-        }
+    this.state = {
+      data: '',
     }
+  }
 
-    componentDidMount() {
-        const data = {login: 'dery', password: '111'};
-        console.log(queryForParams(data))
+  componentDidMount() {
+    const data = {login: 'dery', password: '111'};
+    console.log(queryForParams(data));
+    console.log("kurdełe nic nie dziala")
+  }
 
-    }
   render() {
-      console.log("TRY DOSMTH!");
+    console.log("TRY DOSMTH!");
     return (
       <div className='profile'>
-          console.log("TRY DOSMTH!");
+        console.log("TRY DOSMTH!");
         <h1>About Marvin</h1>
 
         <p>

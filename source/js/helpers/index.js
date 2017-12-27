@@ -1,4 +1,3 @@
-import { queryForParams } from './queryForParams'
-export default {
-    queryForParams,
-}
+import queryForParams from './queryForParams';
+
+// export default queryForParams ;
