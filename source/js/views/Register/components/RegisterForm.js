@@ -1,6 +1,19 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+function checkErrors(props) {
+    return (
+        <div className='err'>
+          {props.error ? (
+            props.errorMessage
+          ) : (
+            ''
+          )}
+        </div>
+    );
+}
+
+
 class RegisterForm extends Component {
   constructor(props) {
     super(props);
@@ -10,30 +23,60 @@ class RegisterForm extends Component {
       password: '',
       passwordConfirmation: '',
       gender: '',
-      errors: {},
+      errors: {
+          password: '',
+          passwordConfirmation: '',
+          passwordCheckBoth: '',
+          gender: '',
+          login: '',
+          nickname: '',
+      },
       isLoading: false,
     };
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.clientValidation = this.clientValidation.bind(this);
+    this.serverValidation = this.serverValidation.bind(this);
   }
 
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
+    this.clientValidation({ name: e.target.name, value: e.target.value })
+  }
+
+  clientValidation(target) {
+      console.log(target)
+      if (!target.value || target.value.trim() === '') {
+          this.state.errors[target.name] = 'You\'ve left this field empty';
+      } else {
+          this.state.errors[target.name] = '';
+      }
+      if (target.name === 'password' || target.name === 'passwordConfirmation') {
+              if (this.state.password != this.state.passwordConfirmation) {
+                  this.state.errors.passwordCheckBoth = '';
+              } else {
+                  this.state.errors.passwordCheckBoth = 'You must write the same password';
+              }
+        }
+
+  }
+
+  serverValidation(target) {
   }
 
   onSubmit(e) {
     e.preventDefault();
-    if (isValid()) {
-
-    }
+    // if (validation()) {
+    //
+    // }
 
   }
 
   render() {
     return (
       <form onSubmit={ this.onSubmit }>
-
+        { console.log( this.state.errors ) }
         <div className='form-group'>
           <label className='control-label'>Username:</label>
           <input
@@ -43,6 +86,9 @@ class RegisterForm extends Component {
             name='login'
             className='form-control'
           />
+          { this.state.errors.login ? <p className='err ml-0-25'>
+              {this.state.errors.login} </p>
+              : ''}
 
           <label htmlFor='' className='control-label'>Nickname:</label>
           <input
@@ -52,6 +98,9 @@ class RegisterForm extends Component {
             name='nickname'
             className='form-control'
           />
+          { this.state.errors.nickname ? <p className='err ml-0-25'>
+              {this.state.errors.nickname} </p>
+              : ''}
 
           <label htmlFor='' className='control-label'>Password:</label>
           <input
@@ -61,6 +110,9 @@ class RegisterForm extends Component {
             name='password'
             className='form-control'
           />
+          { this.state.errors.password ? <p className='err ml-0-25'>
+              {this.state.errors.password} </p>
+              : ''}
 
           <label className='control-label'>Confirm Password:</label>
           <input
@@ -70,6 +122,9 @@ class RegisterForm extends Component {
             name='passwordConfirmation'
             className='form-control'
           />
+          { this.state.errors.passwordConfirmation ? <p className='err ml-0-25'>
+              {this.state.errors.passwordConfirmation} </p>
+              : ''}
 
           <label className='control-label mt-4 mr-4'>Gender:</label>
 
@@ -93,8 +148,14 @@ class RegisterForm extends Component {
                 name='gender'
               /> Female
             </label>
+            { this.state.errors.gender ? <p className='err ml-0-25'>
+                {this.state.errors.gender} </p>
+                : ''}
           </div>
         </div>
+        { this.state.errors.passwordCheckBoth ? <p className='err ml-0-25'>
+            {this.state.errors.passwordCheckBoth} </p>
+            : ''}
         <div className='form-group'>
           <button className='btn'>
             Sign up

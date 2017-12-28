@@ -5,6 +5,7 @@ export const urlConstants = {
 
   // ACCOUNT URLS
   LOGIN_URL: WEBSITE_URL + '/account/login/',
+  LOGOUT_URL: WEBSITE_URL + '/account/logout/',
   NEW_ACCOUNT_URL: WEBSITE_URL + '/account/new/',
   CHANGE_PASSWORD_URL: WEBSITE_URL + '/account/change/password/',
   CHANGE_NICKNAME_URL: WEBSITE_URL + '/account/change/nickname/',

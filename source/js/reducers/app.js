@@ -29,6 +29,7 @@ const initialState = Map({
       token: null,
       id: null,
       nickname: null,
+      login: null,
       gender: null,
       registration_date: null,
   },
@@ -63,6 +64,23 @@ const actionsMap = {
       asyncData: action.data,
     }));
   },
+  [userConstants.LOGOUT]: (state, action) => {
+    return state.merge(Map({
+        loading: false,
+        login: {
+            error: null,
+            status: null,
+        },
+        user: {
+            token: null,
+            id: null,
+            nickname: null,
+            login: null,
+            gender: null,
+            registration_date: null,
+        },
+    }));
+  },
   [userConstants.LOGIN_REQUEST]: (state, action) => {
     return state.merge(Map({
         loading: true,
@@ -74,6 +92,7 @@ const actionsMap = {
             token: null,
             id: null,
             nickname: null,
+            login: null,
             gender: null,
             registration_date: null,
         },
@@ -99,6 +118,7 @@ const actionsMap = {
           token: action.data.data.token,
           id: action.data.data.id,
           nickname: action.data.data.nickname,
+          login: action.data.data.login,
           gender: action.data.data.gender,
           registration_date: action.data.data.registration_date,
       }

@@ -6,18 +6,6 @@ import { connect } from 'react-redux';
 import { routeCodes } from 'config/routes';
 // import { LoginValidation } from './LoginValidation';
 
-function checkErrors(props) {
-    return (
-        <div className='err'>
-          {props.error ? (
-            props.errorMessage
-          ) : (
-            ''
-          )}
-        </div>
-    );
-}
-
 @connect(state => ({
   login: state.app.get('login'),
   loading: state.app.get('loading'),
