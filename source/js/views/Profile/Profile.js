@@ -1,23 +1,27 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
+import defaultAvatar from '../../../assets/img/defaultAvatar2.png';
 
-
+import './Profile.scss';
 
 function ProfileInformation(props) {
       return (
           <div className='profile'>
               <div className="row">
-                  <div className="col-6 login"> <h2> { props.user.login } Profile! </h2> </div>
-              </div>
-              <div className="row">
-                  <ul className='user-profile-information'>
-                      <li>Login: { props.user.login }</li>
-                      <li>Nickname: { props.user.nickname }</li>
-                      <li>Gender: { props.user.gender === 'M'
-                          ? <span className='male'> Male </span>
-                          : <span className='female'> Female </span>
-                       }</li>
-                  </ul>
+                  <img src={ defaultAvatar }
+                      alt='default avatar'
+                      className='avatar' />
+                  <div className="col">
+                      <h2> Your profile: <span className='login'>{ props.user.login }</span> </h2>
+                      <ul className='user-profile-information'>
+                          <li><span className="label">Nickname:</span> { props.user.nickname }</li>
+                          <li><span className="label">Gender:</span> { props.user.gender === 'M'
+                              ? <span className='male'> Male </span>
+                              : <span className='female'> Female </span>
+                           }</li>
+                       <li><span className="label">Join:</span> { props.user.registration_date }</li>
+                      </ul>
+                  </div>
               </div>
           </div>
       );
@@ -30,17 +34,14 @@ class Profile extends Component {
   constructor(props) {
     super(props);
   }
-
-
-
   render() {
     const { user } = this.props;
     return (
-      <div>
-        { this.props.user.login
-            ? <ProfileInformation user={ user } />
-        : <h3 className='mt-4 text-center'>To see your profile you need to login first.</h3>}
-      </div>
+        <div className="profile-container">
+            { this.props.user.login
+                ? <ProfileInformation user={ user } />
+            : <h3 className='col mt-4 text-center'>To see your profile you need to login first.</h3>}
+        </div>
     );
   }
 }
