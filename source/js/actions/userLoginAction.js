@@ -1,12 +1,10 @@
-import axios from 'axios';
-
 import { urlConstants, userConstants } from '../constants';
 import api from 'api';
 
 export const userLoginStart = () => {
     return {
         type: userConstants.LOGIN_REQUEST,
-        loginLoading: true,
+        loading: true,
     }
 }
 
@@ -24,7 +22,6 @@ export const userLoginFailure = error => {
     }
 }
 
-
 export const userLoginAction = (username, password) => {
     return dispatch => {
         dispatch(userLoginStart());
@@ -35,22 +32,6 @@ export const userLoginAction = (username, password) => {
     };
 }
 
-export const userLogout = () => {
-    return {
-        type: userConstants.LOGOUT,
-    };
-}
-export const userLogoutAction = (token) => {
-    return dispatch => {
-        api.userLogout(token)
-          .then(data => dispatch(userLogout()));
-    }
-}
-
 export default {
-    userLoginStart,
-    userLoginSuccess,
-    userLoginFailure,
     userLoginAction,
-    userLogoutAction,
 };

@@ -5,6 +5,7 @@ import {routeCodes} from '../../config/routes';
 
 import {connect} from 'react-redux';
 
+import { userRegisterAction, userRegisterActionFinal } from 'actions';
 import RegisterForm from './components/RegisterForm';
 import './Register.scss'
 
@@ -23,7 +24,8 @@ class Register extends Component {
             <div className='row row-center'>
                 <div className='panel col-sm-10 col-md-6 col-lg-5 col-xl-4'>
                     <h2>Create new account</h2>
-                    <RegisterForm />
+                    <RegisterForm userRegisterAction={ userRegisterAction }
+                                  userRegisterActionFinal={ userRegisterActionFinal } />
                     <NavLink to={routeCodes.DASHBOARD} className="back">
                       Back to main site
                     </NavLink>
@@ -37,4 +39,10 @@ class Register extends Component {
 Register.propTypes = {
 };
 
-export default Register;
+function mapStateToProps(state) {
+  return { register: state.register,
+           loading: state.loading,
+       };
+}
+
+export default connect(mapStateToProps)(Register);

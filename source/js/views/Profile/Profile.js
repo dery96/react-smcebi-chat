@@ -1,41 +1,54 @@
 import React, { Component } from 'react';
-import queryForParams from '../../helpers/queryForParams';
+import {connect} from 'react-redux';
 
+
+
+function ProfileInformation(props) {
+      return (
+          <div className='profile'>
+              <div className="row">
+                  <div className="col-6 login"> <h2> { props.user.login } Profile! </h2> </div>
+              </div>
+              <div className="row">
+                  <ul className='user-profile-information'>
+                      <li>Login: { props.user.login }</li>
+                      <li>Nickname: { props.user.nickname }</li>
+                      <li>Gender: { props.user.gender === 'M'
+                          ? <span className='male'> Male </span>
+                          : <span className='female'> Female </span>
+                       }</li>
+                  </ul>
+              </div>
+          </div>
+      );
+}
+
+@connect(state => ({
+    user: state.app.get('user'),
+}))
 class Profile extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      data: '',
-    }
   }
 
-  componentDidMount() {
-    const data = {login: 'dery', password: '111'};
-    console.log(queryForParams(data));
-    console.log("kurdełe nic nie dziala")
-  }
+
 
   render() {
-    console.log("TRY DOSMTH!");
+    const { user } = this.props;
     return (
-      <div className='profile'>
-        console.log("TRY DOSMTH!");
-        <h1>About Marvin</h1>
-
-        <p>
-          Marvin is internal project by <a href='https://work.co'>Work & Co</a>.
-          We love React and use it a lot. So Marvin is meant to be a starting point
-          for our React projects. But as we love open source too, it is publicly
-          available for anyone interested in using it.
-        </p>
-        <p>
-          Visit documentation
-          on <a href='https://github.com/workco/react-redux-webpack2-boilerplate'>GitHub</a>
-        </p>
+      <div>
+        { this.props.user.login
+            ? <ProfileInformation user={ user } />
+        : <h3 className='mt-4 text-center'>To see your profile you need to login first.</h3>}
       </div>
     );
   }
 }
 
-export default Profile;
+function mapStateToProps(state) {
+  return {
+          user: state.user,
+       };
+}
+
+export default connect(mapStateToProps)(Profile);

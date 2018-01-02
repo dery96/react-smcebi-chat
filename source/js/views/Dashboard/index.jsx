@@ -9,27 +9,13 @@ import bookImg from '../../../assets/img/book2.jpg';
 import axios from 'axios';
 
 import './Dashboard.scss';
-@connect(state => ({
-  asyncData: state.app.get('asyncData'),
-  asyncError: state.app.get('asyncError'),
-  asyncLoading: state.app.get('asyncLoading'),
-  counter: state.app.get('counter'),
-}))
+
 export default class Dashboard extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-        data: '',
-    }
-    this.handleLoginClick.bind(this);
-
   }
 
-  handleLoginClick() {
-    // e.preventDefault();
-    return console.log("aaaaaa");
-  }
   render() {
 
     return (
@@ -49,11 +35,6 @@ export default class Dashboard extends Component {
         <p className="">
             Visit our Site on <a href="" className="">Github</a> project.
         </p>
-        <button
-          onClick={ this.handleLoginClick }
-        >
-          Get async data
-        </button>
       </div>
     );
   }

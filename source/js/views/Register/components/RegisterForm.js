@@ -1,22 +1,25 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-function checkErrors(props) {
-    return (
-        <div className='err'>
-          {props.error ? (
-            props.errorMessage
-          ) : (
-            ''
-          )}
-        </div>
-    );
-}
+import { NavLink, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router'
 
+import { routeCodes } from 'config/routes';
 
+@connect(state => ({
+  register: state.app.get('register'),
+  loading: state.app.get('loading'),
+}))
 class RegisterForm extends Component {
   constructor(props) {
     super(props);
+
+    this.onChange = this.onChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+    this.clientValidation = this.clientValidation.bind(this);
+    this.serverValidation = this.serverValidation.bind(this);
+
     this.state = {
       login: '',
       nickname: '',
@@ -24,20 +27,14 @@ class RegisterForm extends Component {
       passwordConfirmation: '',
       gender: '',
       errors: {
-          password: '',
-          passwordConfirmation: '',
-          passwordCheckBoth: '',
-          gender: '',
-          login: '',
-          nickname: '',
+          password: ' ',
+          passwordConfirmation: ' ',
+          passwordCheckBoth: ' ',
+          gender: ' ',
+          login: ' ',
+          nickname: ' ',
       },
-      isLoading: false,
     };
-
-    this.onChange = this.onChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
-    this.clientValidation = this.clientValidation.bind(this);
-    this.serverValidation = this.serverValidation.bind(this);
   }
 
   onChange(e) {
@@ -46,7 +43,6 @@ class RegisterForm extends Component {
   }
 
   clientValidation(target) {
-      console.log(target)
       if (!target.value || target.value.trim() === '') {
           this.state.errors[target.name] = 'You\'ve left this field empty';
       } else {
@@ -63,20 +59,33 @@ class RegisterForm extends Component {
   }
 
   serverValidation(target) {
+      for (let [key, value] of Object.entries(target)) {
+           if ( value ) {
+               console.log(value);
+               return false;
+           }
+        }
+      return true;
   }
 
   onSubmit(e) {
-    e.preventDefault();
-    // if (validation()) {
-    //
-    // }
+      const { dispatch, userRegisterAction, register } = this.props;
+      e.preventDefault();
 
+      if (this.serverValidation(this.state.errors)) {
+          dispatch(userRegisterAction(
+              this.state.login,
+              this.state.password,
+              this.state.nickname,
+              this.state.gender,
+          ));
+      }
   }
 
   render() {
+      const { dispatch, userRegisterActionFinal } = this.props;
     return (
       <form onSubmit={ this.onSubmit }>
-        { console.log( this.state.errors ) }
         <div className='form-group'>
           <label className='control-label'>Username:</label>
           <input
@@ -161,6 +170,11 @@ class RegisterForm extends Component {
             Sign up
           </button>
         </div>
+        {this.props.register.status === 201 && (
+          dispatch( userRegisterActionFinal() ),
+          <Redirect to={ '/login'}/>
+        )}
+        { this.props.register.error ? <span className='err'>You have entered existing username or nickname in database!</span> : ''}
       </form>
     );
   }
@@ -170,4 +184,10 @@ RegisterForm.propTypes = {
   // userRegisterRequest: PropTypes.func.isRequired,
 };
 
-export default RegisterForm;
+function mapStateToProps(state) {
+  return { register: state.register,
+           loading: state.loading,
+       };
+}
+
+export default connect(mapStateToProps)(RegisterForm);

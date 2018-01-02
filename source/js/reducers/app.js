@@ -103,7 +103,7 @@ const actionsMap = {
       loading: false,
       login: {
           error: action.error.message,
-          status: action.status,
+          status: action.error.status,
       },
     }));
   },
@@ -112,7 +112,7 @@ const actionsMap = {
       loading: false,
       login: {
           error: null,
-          status: action.status,
+          status: action.data.status,
       },
       user: {
           token: action.data.data.token,
@@ -138,7 +138,7 @@ const actionsMap = {
         loading: false,
         register: {
             error: action.error.message,
-            status: action.status,
+            status: action.error.status,
         }
     }));
   },
@@ -147,7 +147,16 @@ const actionsMap = {
       loading: false,
       register: {
           error: null,
-          status: action.status,
+          status: action.data.status,
+      }
+    }));
+  },
+  [userConstants.REGISTER_SUCCESS_CLR_STATUS]: (state, action) => {
+    return state.merge(Map({
+      loading: false,
+      register: {
+          error: null,
+          status: null,
       }
     }));
   },

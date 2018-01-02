@@ -6,11 +6,6 @@ import { urlConstants } from '../constants/url.constants';
 
 promisePolyfill.polyfill();
 
-// function testAsync() {
-//   return fetch('http://date.jsontest.com/')
-//     .then(response => response.json());
-// }
-
 function testAsync() {
   return fetch('http://localhost:7171/account/new/', {
     login: 'akacja',
@@ -40,9 +35,21 @@ function userLogout(token) {
         )
 }
 
+function userRegister(login, password, nickname, gender) {
+    return axios.post( urlConstants.NEW_ACCOUNT_URL,
+            queryForParams({
+                login: login,
+                password: password,
+                nickname: nickname,
+                gender: gender,
+            }),
+            urlConstants.REQUEST_CONFIG,
+        )
+}
+
 export default {
   testAsync,
   userLogin,
   userLogout,
-  // testServerConnection,
+  userRegister,
 };

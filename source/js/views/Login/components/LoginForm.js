@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { NavLink, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router'
 
 import { routeCodes } from 'config/routes';
 // import { LoginValidation } from './LoginValidation';
@@ -24,11 +25,12 @@ export class LoginForm extends Component {
     }
   }
 
-  validation(e) {
-      if (!props.login || props.login.trim() === '') {
+  validation() {
+      const { dispatch, userLoginAction, user } = this.props;
+      if (!this.state.login || this.state.login.trim() === '') {
           return 'You\'ve left this field empty'
       }
-      if (!props.password || props.password.trim() === '') {
+      if (!this.state.password || this.state.password.trim() === '') {
           return 'You\'ve left this field empty'
       }
       if (this.props.login.error) {
@@ -42,7 +44,7 @@ export class LoginForm extends Component {
   }
 
   onSubmit(e) {
-      const { dispatch, userLoginAction, user } = this.props;
+      const { dispatch, userLoginAction, user, login } = this.props;
     e.preventDefault();
     dispatch(userLoginAction(this.state.login, this.state.password))
   }
@@ -82,6 +84,10 @@ export class LoginForm extends Component {
             Sign up
           </button>
         </div>
+        {console.log(this.props.login.status)}
+        {this.props.login.status === 202 && (
+          <Redirect to={ '/profile'}/>
+        )}
       </form>
     );
   }
