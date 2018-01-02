@@ -1,6 +1,6 @@
 import { Map } from 'immutable';
 
-import { urlConstants, userConstants } from '../constants';
+import { urlConstants, userConstants, chatConstants } from '../constants';
 
 import {
   TEST_ACTION,
@@ -33,6 +33,9 @@ const initialState = Map({
       gender: null,
       registration_date: null,
   },
+  messages: [
+  ]
+
 });
 
 const actionsMap = {
@@ -158,6 +161,21 @@ const actionsMap = {
           error: null,
           status: null,
       }
+    }));
+  },
+  [chatConstants.INITIAL_CHANNEL_MESSAGES]: (state, action) => {
+    return state.merge(Map({
+      messages: action.data.messages,
+    }));
+  },
+  [chatConstants.NEW_MESSAGE]: (state, action) => {
+    return state.merge(Map({
+      messages: [...state.get('messages'), JSON.parse(action.data)],
+    }));
+  },
+  [chatConstants.CLEAR_MESSAGES]: (state, action) => {
+    return state.merge(Map({
+      messages: [],
     }));
   },
 };

@@ -3,8 +3,16 @@
 .message {
     padding-left: .2em;
     margin-bottom: .4em;
+    p {
+        margin-bottom: 0;
+    }
     &:last-child {
         margin-bottom: 0;
+    }
+    .server {
+        font-size: .9rem;
+        font-weight: 600;
+        color: $dark;
     }
     .author {
         font-size: .9rem;

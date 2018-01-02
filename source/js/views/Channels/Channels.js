@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import { Chat } from '../../components/Chat/Chat';
 import { ChannelPanel, ChannelOperations } from '../../components/Panel/index';
@@ -18,11 +19,15 @@ function SwitchPanelControl(props) {
     );
 }
 
+@connect(state => ({
+  user: state.app.get('user'),
+}))
 class Channels extends Component {
   constructor(props) {
     super(props);
+    const { dispatch, user } = this.props
     this.state = {
-      panel: true,
+      panel: false,
     };
 
     this.onClick = this.onClick.bind(this);
@@ -36,29 +41,35 @@ class Channels extends Component {
   }
 
   onClick(e) {
-      console.log(!this.state.panel);
       this.setState({ panel: !(this.state.panel) });
   }
 
   render() {
+    const { dispatch, user } = this.props
     return (
       <div className='channel'>
-          <div className='row'>
-              <SwitchPanelControl panel={ this.state.panel } />
-              <Chat />
-          </div>
-          <div className="row">
-              <button
-                  name='panel'
-                  onClick={ this.onClick }
-              >
-                  SwitchPanel
-              </button>
-          </div>
+          { this.props.user.token
+              ? <div><div className='row'>
+                  <SwitchPanelControl panel={ this.state.panel } />
+                  <Chat />
+              </div>
+              <div className="row">
+                  <button
+                      name='panel'
+                      onClick={ this.onClick }
+                  >
+                      SwitchPanel
+                  </button>
+              </div></div>
+          : <div className='row'><h3 className='col mt-4 text-center not-logged'>To use it you must login first!</h3></div>}
       </div>
 
     );
   }
 }
-
-export default Channels;
+function mapStateToProps(state) {
+    return {
+        user: state.user,
+    };
+}
+export default connect(mapStateToProps)(Channels);

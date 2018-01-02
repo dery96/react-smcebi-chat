@@ -1,3 +1,4 @@
+@import "./source/scss/base/_variable";
 .login-bg {
   background: linear-gradient(rgba(0, 0, 0, .2), rgba(255, 255, 255, .1)), url(../../../assets/img/login-dark.jpg) center center !important;
   background-size: cover;
@@ -5,4 +6,13 @@
 
 .normal-bg {
   background-color: #fff !important;
+}
+
+.not-logged {
+    background: $light;
+    padding: 3em;
+    border-radius: .2em;
+    margin-top: 8em;
+    font-weight: 400;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
 }

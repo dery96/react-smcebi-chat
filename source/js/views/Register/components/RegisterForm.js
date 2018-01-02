@@ -61,7 +61,6 @@ class RegisterForm extends Component {
   serverValidation(target) {
       for (let [key, value] of Object.entries(target)) {
            if ( value ) {
-               console.log(value);
                return false;
            }
         }

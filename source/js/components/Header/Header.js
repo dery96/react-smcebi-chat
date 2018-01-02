@@ -39,7 +39,6 @@ class Header extends Component {
                 { this.props.user.nickname ?
                     <p className='guest'>
                          Logged as <strong>{this.props.user.nickname}</strong> ({this.props.user.login}) <NavLink
-                               activeClassName='menu-item-active'
                                className='menu-item logout'
                                to={routeCodes.DASHBOARD}
                                onClick={ this.logoutClick }
@@ -49,14 +48,12 @@ class Header extends Component {
                     </p>
                     :
                     <p className='guest'> You're guest want <NavLink
-                          activeClassName='menu-item-active'
                           className='menu-item'
                           exact
                           to={routeCodes.LOGIN}
                         >
                           sign in
                         </NavLink> or <NavLink
-                              activeClassName='menu-item-active'
                               className='menu-item'
                               exact
                               to={routeCodes.REGISTER}

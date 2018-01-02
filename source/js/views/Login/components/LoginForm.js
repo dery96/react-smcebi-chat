@@ -84,7 +84,6 @@ export class LoginForm extends Component {
             Sign up
           </button>
         </div>
-        {console.log(this.props.login.status)}
         {this.props.login.status === 202 && (
           <Redirect to={ '/profile'}/>
         )}

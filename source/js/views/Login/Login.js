@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import {NavLink} from 'react-router-dom';
-import {routeCodes} from '../../config/routes';
 import { connect } from 'react-redux';
+
+import {routeCodes} from '../../config/routes';
 import { userLoginAction } from 'actions';
 
 import './Login.scss';
