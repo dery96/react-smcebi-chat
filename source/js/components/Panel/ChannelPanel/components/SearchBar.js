@@ -6,7 +6,7 @@ export class SearchBar extends Component {
         return(
             <form className='search-bar'>
                 <input type="text"
-                    placeholder='Search for new channel...'
+                    placeholder='Search to join channel...'
                 />
             </form>
         );

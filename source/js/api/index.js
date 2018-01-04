@@ -47,9 +47,19 @@ function userRegister(login, password, nickname, gender) {
         )
 }
 
+function getOnlineUsers(token) {
+    return axios.post( urlConstants.LOGOUT_URL,
+            queryForParams({
+                token: token,
+            }),
+            urlConstants.REQUEST_CONFIG,
+        )
+}
+
 export default {
   testAsync,
   userLogin,
   userLogout,
   userRegister,
+  getOnlineUsers,
 };

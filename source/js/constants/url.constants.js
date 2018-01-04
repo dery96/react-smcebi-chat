@@ -16,10 +16,11 @@ export const urlConstants = {
   ALL_CHANNELS_URL: WEBSITE_URL + '/channel/all/',
 
   // USER URLS
-  ALL_USERS_ACTIVE_URL: WEBSITE_URL + '/users/all/',
+  ALL_USERS_ONLINE_URL: WEBSITE_URL + '/users/online/all/',
+  ALL_USERS_URL: WEBSITE_URL + '/users/all/',
 
   // CHAT URLS
-  CHAT_URL: WEBSITE_URL + '/chat/',
+  CHAT_URL: 'ws://localhost:7171/chat/',
 };
 
 export default urlConstants;

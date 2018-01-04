@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
-
 import { MessageBox } from './components';
 
-import { loadInitialMessages, newMessage, clearMessages} from 'actions';
+import { loadInitialMessages,
+         newMessage,
+         clearMessages,
+         loadChatAction,
+         refreshOnlineAction,
+         } from 'actions';
 import { urlConstants } from 'constants/url.constants';
 
 @connect(state => ({
@@ -21,17 +24,28 @@ export class Chat extends Component {
         super(props)
         const { dispatch, user } = this.props
         if (this.props.user) {
+            const name = "?name=" + this.props.user.nickname;
+            const token = "&token=" + this.props.user.token;
+            const channel = this.props.user.activeChannel ?
+                            '&channel=' + this.props.user.activeChannel
+                            : '';
             this.state = {
-                message: '',
-                ws: new WebSocket("ws://" + "localhost" + ":" + "7171" + "/chat/?name="+this.props.user.nickname)
-            }
+                ws: new WebSocket(urlConstants.CHAT_URL + name + token + channel)
+            };
         }
-        /*
-        this.state.ws.onopen = () => {
-            this.state.ws.send(this.props.user.nickname);
-        } */
         this.state.ws.onmessage = msg => {
-            dispatch(newMessage(msg.data))
+            const parsedMsg = JSON.parse(msg.data);
+            console.log(parsedMsg)
+            if (parsedMsg.type === 'CHANNELS') {
+                parsedMsg.channels = JSON.parse(parsedMsg.channels);
+                dispatch( loadChatAction(parsedMsg) )
+            } else if (parsedMsg.type === 'ONLINE_USERS') {
+                console.log("WCHODZE JAKO ONLINE USRES");
+                dispatch( refreshOnlineAction(parsedMsg) )
+            }
+            // } else {
+            //     dispatch(newMessage(msg.data))
+            // }
         }
         this.state.ws.onclose = () => console.log("close connection");
         this.handleClick = this.handleClick.bind(this)
@@ -41,7 +55,6 @@ export class Chat extends Component {
 
   handleClick(e) {
       e.preventDefault();
-      console.log(this.state.message);
       this.state.ws.send(this.state.message);
   }
 
@@ -73,7 +86,7 @@ export class Chat extends Component {
               </div>
             </div>
         </div>
-);
+    );
   }
 }
 

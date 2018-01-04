@@ -8,10 +8,6 @@ import { connect } from 'react-redux';
 export class ChannelUsers extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      channelTitle: 'Looby',
-      channelOwner: 1,
-    }
     this.renderUsers = this.renderUsers.bind(this);
   }
 

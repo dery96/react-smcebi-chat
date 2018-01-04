@@ -7,6 +7,22 @@
       margin-bottom: .4em;
       background: rgba(248, 248, 248, .1);
   }
+  .channel-new {
+    padding: .2em 15px .2em 15px;
+    width: 100%;
+    text-align: right;
+  }
+  .no-channels {
+      padding: .6em 15px .6em 15px;
+      text-align: center;
+  }
+  .online-users {
+      .comma {
+      }
+  }
+  .channel-new, .no-channels, .online-users {
+    font-size: .9rem;
+  }
   .search-bar {
       padding: 5px 15px 5px 15px;
       input {

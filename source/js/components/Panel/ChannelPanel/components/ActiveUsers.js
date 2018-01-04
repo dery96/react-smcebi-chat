@@ -1,28 +1,30 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 export class ActiveUsers extends Component {
     constructor(props) {
         super(props)
-        this.state = {
-            userActive: {
-                1: 'Jedrek',
-                2: 'Bezi',
-                3: 'Zdzislaw',
-                4: 'Maciek'
-            }
-        }
+        this.renderOnlineUsers = this.renderOnlineUsers.bind(this);
     }
 
+    renderOnlineUsers() {
+        return this.props.onlineUsers.map((user, key) => {
+            return(
+                <span>{user}, </span>
+            );
+        });
+    }
   render() {
+      const { onlineUsers } = this.props
       return(
           <div className="mt-2">
               <div className='channel-title'>
                   Online
               </div>
-              <div className='col'>
-                  { this.state.userActive[1] }
-                  { this.state.userActive[2] }
-                  { this.state.userActive[3] }
+              <div className='col online-users'>
+                  { this.props.onlineUsers
+                      ? this.renderOnlineUsers()
+                      : 'Currently nobody is logged in'}
               </div>
           </div>
       );

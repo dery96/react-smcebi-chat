@@ -1,33 +1,39 @@
 import React, { Component } from 'react';
-export class ChannelList extends Component {
+import { connect } from 'react-redux';
 
+export class ChannelList extends Component {
     constructor(props) {
-        super(props)
-        this.state = {
-            userChannelsList: {
-                1: 'firstChannel',
-                2: 'secondChannel',
-                3: 'thirdChannel',
-                4: 'fourthChannel'
-            }
-        }
+        super(props);
+        const { user } = this.props
+        this.renderChannels = this.renderChannels.bind(this);
     }
 
+    renderChannels() {
+        return this.props.user.subscribedChannels.map( (channel, key)  => {
+            return (
+                <li key={ key }>
+                    { channel.name }, na { channel.size }
+                </li>
+            );
+        })
+    };
+
   render() {
-      return(
+      const { user } = this.props
+      return (
           <div className="mt-2">
               <div className='channel-title'>
                   Channels
               </div>
-              <ul>
-                  <li>{ this.state.userChannelsList[1] }</li>
-                  <li>{ this.state.userChannelsList[2] }</li>
-                  <li>{ this.state.userChannelsList[3] }</li>
-                  <li>{ this.state.userChannelsList[4] }</li>
-              </ul>
+              {(this.props.user.subscribedChannels.length === 0)
+                  ? <div className='no-channels'
+                           key={ 0 }>
+                          You're <strong>not subscribe</strong> any channel yet.
+                    </div>
+                  : this.renderChannels() }
           </div>
       );
-  };
+  }
 }
 
 export default ChannelList;

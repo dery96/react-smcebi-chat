@@ -6,31 +6,21 @@ import { Chat } from '../../components/Chat/Chat';
 import { ChannelPanel, ChannelOperations } from '../../components/Panel/index';
 import './Channels.scss';
 
-function SwitchPanelControl(props) {
-    return (
-        <div className='left-panel col-3'>
-          {props.panel ? (
-            <ChannelOperations />
-
-          ) : (
-            <ChannelPanel />
-          )}
-        </div>
-    );
-}
-
 @connect(state => ({
   user: state.app.get('user'),
+  channels: state.app.get('channels'),
+  onlineUsers: state.app.get('onlineUsers'),
 }))
 class Channels extends Component {
   constructor(props) {
     super(props);
-    const { dispatch, user } = this.props
+    const { dispatch, user, onlineUsers } = this.props
     this.state = {
       panel: false,
     };
 
     this.onClick = this.onClick.bind(this);
+    this.switchPanelControl = this.switchPanelControl.bind(this);
   }
   componentDidMount() {
       document.body.className="login-bg" // Or set the class
@@ -44,13 +34,28 @@ class Channels extends Component {
       this.setState({ panel: !(this.state.panel) });
   }
 
+  switchPanelControl() {
+      return (
+          <div className='left-panel col-3'>
+            {this.state.panel ? (
+              <ChannelOperations />
+
+            ) : (
+              <ChannelPanel user={ this.props.user }
+                             onlineUsers={ this.props.onlineUsers }
+              />
+            )}
+          </div>
+      );
+  }
+
   render() {
     const { dispatch, user } = this.props
     return (
       <div className='channel'>
           { this.props.user.token
               ? <div><div className='row'>
-                  <SwitchPanelControl panel={ this.state.panel } />
+                  { this.switchPanelControl() }
                   <Chat />
               </div>
               <div className="row">
@@ -70,6 +75,8 @@ class Channels extends Component {
 function mapStateToProps(state) {
     return {
         user: state.user,
+        channels: state.channels,
+        onlineUsers: state.onlineUsers
     };
 }
 export default connect(mapStateToProps)(Channels);

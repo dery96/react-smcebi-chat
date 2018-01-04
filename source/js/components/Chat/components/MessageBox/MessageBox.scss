@@ -4,6 +4,10 @@
 .message-box {
   background: white;
   border-radius: .2em;
+
+  .messages {
+    min-height: 300px;
+  }
     .row {
         flex-flow: column;
         padding: 15px;

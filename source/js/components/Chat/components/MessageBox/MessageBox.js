@@ -26,7 +26,7 @@ export class MessageBox extends Component {
   render() {
       const { messages } = this.props
     return (
-        <div className="row">
+        <div className="row messages">
             { this.renderMessages() }
         </div>
     );

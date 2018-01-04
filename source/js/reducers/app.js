@@ -32,9 +32,14 @@ const initialState = Map({
       login: null,
       gender: null,
       registration_date: null,
+      subscribedChannels: [],
+      activeChannel: null,
   },
+  onlineUsers: [],
   messages: [
-  ]
+  ],
+  channels: [
+  ],
 
 });
 
@@ -67,6 +72,9 @@ const actionsMap = {
       asyncData: action.data,
     }));
   },
+
+  /* LOGOUT */
+
   [userConstants.LOGOUT]: (state, action) => {
     return state.merge(Map({
         loading: false,
@@ -81,9 +89,14 @@ const actionsMap = {
             login: null,
             gender: null,
             registration_date: null,
+            subscribedChannels: {},
+            activeChannel: null,
         },
     }));
   },
+
+  /* LOGIN */
+
   [userConstants.LOGIN_REQUEST]: (state, action) => {
     return state.merge(Map({
         loading: true,
@@ -98,6 +111,8 @@ const actionsMap = {
             login: null,
             gender: null,
             registration_date: null,
+            subscribedChannels: [],
+            activeChannel: null,
         },
     }));
   },
@@ -124,9 +139,14 @@ const actionsMap = {
           login: action.data.data.login,
           gender: action.data.data.gender,
           registration_date: action.data.data.registration_date,
+          subscribedChannels: [],
+          activeChannel: null,
       }
     }));
   },
+
+  /* REGISTRATION */
+
   [userConstants.REGISTER_REQUEST]: (state, action) => {
     return state.merge(Map({
         loading: false,
@@ -163,6 +183,9 @@ const actionsMap = {
       }
     }));
   },
+
+  /* CHAT */
+
   [chatConstants.INITIAL_CHANNEL_MESSAGES]: (state, action) => {
     return state.merge(Map({
       messages: action.data.messages,
@@ -178,6 +201,52 @@ const actionsMap = {
       messages: [],
     }));
   },
+
+  /* ONLINE USERS */
+
+  [userConstants.GET_ONLINE_USERS_REQUEST]: (state, action) => {
+    return state.merge(Map({
+        onlineUsers: {
+            data: null,
+            error: null,
+            status: null,
+        }
+    }));
+  },
+  [userConstants.GET_ONLINE_USERS_SUCCESS]: (state, action) => {
+    return state.merge(Map({
+        onlineUsers: {
+            error: action.error.message,
+            status: action.error.status,
+        }
+    }));
+  },
+  [userConstants.GET_ONLINE_USERS_FAILURE]: (state, action) => {
+    return state.merge(Map({
+      onlineUsers: {
+          error: null,
+          status: action.data.status,
+          data: action.data.onlineUsers,
+      }
+    }));
+  },
+
+  /* LOAD INIT CHAT */
+
+  [chatConstants.LOAD_CHAT_DATA]: (state, action) => {
+    return state.merge(Map({
+      channels: action.data.channels,
+    }));
+  },
+
+  /* LOAD INIT CHAT */
+
+  [chatConstants.REFRESH_ONLINE]: (state, action) => {
+    return state.merge(Map({
+      onlineUsers: action.data.onlineUsers,
+    }));
+  },
+
 };
 
 export default function reducer(state = initialState, action = {}) {
