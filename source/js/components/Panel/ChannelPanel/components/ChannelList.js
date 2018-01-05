@@ -1,39 +1,77 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import { setActiveChannelAction } from 'actions';
+
+@connect(state => ({
+  channels: state.app.get('channels'),
+  user: state.app.get('user'),
+}))
 export class ChannelList extends Component {
     constructor(props) {
         super(props);
-        const { user } = this.props
+        const { user, channels } = this.props
         this.renderChannels = this.renderChannels.bind(this);
+        this.setActiveChannel = this.setActiveChannel.bind(this);
+
+        this.state = {
+            trigger: false
+        }
     }
 
     renderChannels() {
-        return this.props.user.subscribedChannels.map( (channel, key)  => {
-            return (
-                <li key={ key }>
-                    { channel.name }, na { channel.size }
-                </li>
-            );
+        const { channels, user } = this.props;
+        return this.props.user.subscribedChannels.data.map( (sbcrChannel, key)  => {
+            if (!(this.props.channels.length === 0)) {
+                const properChannel = this.props.channels.find( channel => {
+                    return channel.id === sbcrChannel.channel_id
+                })
+                return (
+                    <span key={ properChannel.id }
+                          name={ properChannel.name }
+                        onClick={ () => this.setActiveChannel(properChannel.name, properChannel.id) }
+                        >
+                        { this.props.user.activeChannel.name === properChannel.name
+                          ? <strong>{ properChannel.name }</strong>
+                          : properChannel.name
+                        }
+                    </span>
+                );
+            }
         })
     };
 
+  setActiveChannel(name, id) {
+    const { dispatch, user } = this.props;
+
+    dispatch( setActiveChannelAction( { name: name, id: id} ) )
+    let tmp = this.state.trigger
+    this.setState({ trigger: !tmp })
+
+
+  }
   render() {
       const { user } = this.props
       return (
           <div className="mt-2">
               <div className='channel-title'>
-                  Channels
+                  Subscribe Channels
               </div>
-              {(this.props.user.subscribedChannels.length === 0)
+              {(this.props.user.subscribedChannels.data.length === 0)
                   ? <div className='no-channels'
                            key={ 0 }>
-                          You're <strong>not subscribe</strong> any channel yet.
+                          You're <strong>not subscribed</strong> any channel yet.
                     </div>
-                  : this.renderChannels() }
+                  : <div className='subscribed-channels'>{ this.renderChannels() }</div> }
           </div>
       );
   }
 }
 
-export default ChannelList;
+function mapStateToProps(state) {
+    return {
+        user: state.user,
+        channels: state.channels,
+    };
+}
+export default connect(mapStateToProps)(ChannelList);

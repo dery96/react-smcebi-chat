@@ -56,10 +56,22 @@ function getOnlineUsers(token) {
         )
 }
 
+function subscribeChannel(channel_id, user_id, token) {
+    return axios.post( urlConstants.SUBSCRIBE_CHANNEL_URL,
+            queryForParams({
+                channel_id: channel_id,
+                user_id: user_id,
+                token: token,
+            }),
+            urlConstants.REQUEST_CONFIG,
+        )
+}
+
 export default {
   testAsync,
   userLogin,
   userLogout,
   userRegister,
   getOnlineUsers,
+  subscribeChannel,
 };

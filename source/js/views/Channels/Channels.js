@@ -36,13 +36,14 @@ class Channels extends Component {
 
   switchPanelControl() {
       return (
-          <div className='left-panel col-3'>
+          <div className='left-panel col-xs-4 col-sm-3'>
             {this.state.panel ? (
               <ChannelOperations />
 
             ) : (
               <ChannelPanel user={ this.props.user }
-                             onlineUsers={ this.props.onlineUsers }
+                            onlineUsers={ this.props.onlineUsers }
+                            channels={ this.props.channels }
               />
             )}
           </div>
@@ -50,7 +51,7 @@ class Channels extends Component {
   }
 
   render() {
-    const { dispatch, user } = this.props
+    const { dispatch, user, channels } = this.props
     return (
       <div className='channel'>
           { this.props.user.token

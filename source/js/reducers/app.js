@@ -1,6 +1,10 @@
 import { Map } from 'immutable';
 
-import { urlConstants, userConstants, chatConstants } from '../constants';
+import { urlConstants,
+         userConstants,
+         chatConstants,
+         channelConstants,
+       } from '../constants';
 
 import {
   TEST_ACTION,
@@ -32,10 +36,18 @@ const initialState = Map({
       login: null,
       gender: null,
       registration_date: null,
-      subscribedChannels: [],
-      activeChannel: null,
+      subscribedChannels: {
+          data: [],
+          errors: null,
+      },
+      activeChannel: {
+        name: null,
+        id: null,
+      },
   },
-  onlineUsers: [],
+  onlineUsers: [
+
+  ],
   messages: [
   ],
   channels: [
@@ -89,8 +101,14 @@ const actionsMap = {
             login: null,
             gender: null,
             registration_date: null,
-            subscribedChannels: {},
-            activeChannel: null,
+            subscribedChannels: {
+                data: [],
+                errors: null,
+            },
+            activeChannel: {
+                name: null,
+                id: null,
+            },
         },
     }));
   },
@@ -111,8 +129,14 @@ const actionsMap = {
             login: null,
             gender: null,
             registration_date: null,
-            subscribedChannels: [],
-            activeChannel: null,
+            subscribedChannels: {
+                data: [],
+                errors: null,
+            },
+            activeChannel: {
+                name: null,
+                id: null,
+            },
         },
     }));
   },
@@ -139,8 +163,12 @@ const actionsMap = {
           login: action.data.data.login,
           gender: action.data.data.gender,
           registration_date: action.data.data.registration_date,
-          subscribedChannels: [],
-          activeChannel: null,
+          subscribedChannels: {
+              data: JSON.parse(action.data.data.subscribedChannels),
+          },
+          activeChannel: {
+            name: null,
+          },
       }
     }));
   },
@@ -202,35 +230,6 @@ const actionsMap = {
     }));
   },
 
-  /* ONLINE USERS */
-
-  [userConstants.GET_ONLINE_USERS_REQUEST]: (state, action) => {
-    return state.merge(Map({
-        onlineUsers: {
-            data: null,
-            error: null,
-            status: null,
-        }
-    }));
-  },
-  [userConstants.GET_ONLINE_USERS_SUCCESS]: (state, action) => {
-    return state.merge(Map({
-        onlineUsers: {
-            error: action.error.message,
-            status: action.error.status,
-        }
-    }));
-  },
-  [userConstants.GET_ONLINE_USERS_FAILURE]: (state, action) => {
-    return state.merge(Map({
-      onlineUsers: {
-          error: null,
-          status: action.data.status,
-          data: action.data.onlineUsers,
-      }
-    }));
-  },
-
   /* LOAD INIT CHAT */
 
   [chatConstants.LOAD_CHAT_DATA]: (state, action) => {
@@ -239,11 +238,57 @@ const actionsMap = {
     }));
   },
 
-  /* LOAD INIT CHAT */
+  /* REFRESH USER ONLINE LIST */
 
   [chatConstants.REFRESH_ONLINE]: (state, action) => {
     return state.merge(Map({
       onlineUsers: action.data.onlineUsers,
+    }));
+  },
+
+  /* SUBSCRIBE CHANNEL */
+
+  [channelConstants.SUBSCRIBE_CHANNEL_REQUEST]: (state, action) => {
+      const user = state.get('user');
+      user.subscribedChannels = {
+              data: [],
+              error: null,
+      }
+    return state.merge(Map({
+        user,
+    }));
+  },
+  [channelConstants.SUBSCRIBE_CHANNEL_FAILURE]: (state, action) => {
+      const user = state.get('user');
+      user.subscribedChannels = {
+              data: [],
+              error: action.error.message,
+      }
+    return state.merge(Map({
+        user,
+    }));
+  },
+  [channelConstants.SUBSCRIBE_CHANNEL_SUCCESS]: (state, action) => {
+      const user = state.get('user');
+      user.subscribedChannels = {
+              data: action.data,
+              error: null,
+      }
+    return state.merge(Map({
+        user,
+    }));
+  },
+
+  /* SET ACTIVE CHANNEL */
+
+  [channelConstants.SET_ACTIVE_CHANNEL]: (state, action) => {
+      const user = state.get('user');
+      user.activeChannel = {
+              name: action.data.name,
+              id: action.data.id,
+      }
+    return state.merge(Map({
+        user,
     }));
   },
 

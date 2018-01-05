@@ -14,6 +14,7 @@ export const urlConstants = {
   NEW_CHANNEL_URL: WEBSITE_URL + '/channel/new/',
   DELETE_CHANNEL_URL: WEBSITE_URL + '/channel/delete/',
   ALL_CHANNELS_URL: WEBSITE_URL + '/channel/all/',
+  SUBSCRIBE_CHANNEL_URL: WEBSITE_URL + '/channel/subscribe/',
 
   // USER URLS
   ALL_USERS_ONLINE_URL: WEBSITE_URL + '/users/online/all/',

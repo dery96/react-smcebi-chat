@@ -12,16 +12,16 @@ export class ChannelPanel extends Component {
         super(props)
     }
   render() {
-    const { onlineUsers,user } = this.props;
+    const { onlineUsers, user, channels } = this.props;
     return (
       <div className='channel-panel'>
         <div className='channel-title'>
             Panel
         </div>
-        <SearchBar />
+        <SearchBar channels={ channels } user={ user } />
         <div className='channel-new'>Or create new <strong>instead!</strong></div>
-        <ChannelList user={user} />
-        <ActiveUsers onlineUsers={onlineUsers} />
+        <ChannelList />
+        <ActiveUsers onlineUsers={ onlineUsers } />
       </div>
     );
   }
