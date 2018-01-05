@@ -8,23 +8,6 @@ export const newMessage = data => {
     }
 }
 
-export const initialMessages = data => {
-    return {
-        type: chatConstants.INITIAL_CHANNEL_MESSAGES,
-        data: data,
-    }
-}
-
-export const loadInitialMessages = (socket) => {
-	return (dispatch) => {
-		// dispatch(clearAllItems())
-		socket.on('initialList', res => {
-		   // console.dir(res)
-		   dispatch( initialMessages(res) )
-	   })
-	}
-}
-
 export const clearMessages = ( socket, id, item ) => {
     return dispatch => {
         dispatch({
@@ -34,7 +17,5 @@ export const clearMessages = ( socket, id, item ) => {
 }
 export default {
     newMessage,
-    initialMessages,
-    loadInitialMessages,
     clearMessages,
 }

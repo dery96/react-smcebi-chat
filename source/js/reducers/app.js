@@ -45,14 +45,9 @@ const initialState = Map({
         id: null,
       },
   },
-  onlineUsers: [
-
-  ],
-  messages: [
-  ],
-  channels: [
-  ],
-
+  onlineUsers: [],
+  messages: [],
+  channels: [],
 });
 
 const actionsMap = {
@@ -110,6 +105,9 @@ const actionsMap = {
                 id: null,
             },
         },
+        onlineUsers: [],
+        messages: [],
+        channels: [],
     }));
   },
 
@@ -138,6 +136,9 @@ const actionsMap = {
                 id: null,
             },
         },
+        onlineUsers: [],
+        messages: [],
+        channels: [],
     }));
   },
   [userConstants.LOGIN_FAILURE]: (state, action) => {
@@ -168,8 +169,12 @@ const actionsMap = {
           },
           activeChannel: {
             name: null,
+            id: null,
           },
-      }
+      },
+      onlineUsers: [],
+      messages: [],
+      channels: [],
     }));
   },
 
@@ -214,15 +219,42 @@ const actionsMap = {
 
   /* CHAT */
 
-  [chatConstants.INITIAL_CHANNEL_MESSAGES]: (state, action) => {
-    return state.merge(Map({
-      messages: action.data.messages,
-    }));
-  },
   [chatConstants.NEW_MESSAGE]: (state, action) => {
-    return state.merge(Map({
-      messages: [...state.get('messages'), JSON.parse(action.data)],
-    }));
+      const { channelId } = action.data
+    /* FIND PROPER CHANNEL TO WHOM YOU WANT TO ADD NEW MESSAGE */
+    console.log("NEW_MESSAGES PREV_STATE", state.get('messages'));
+    const stateMessages = state.get('messages')
+    const checkIfExists = stateMessages.find( ( subscribedChannel ) => {
+    return subscribedChannel.channelId === channelId
+    });
+
+    if (typeof checkIfExists !== 'undefined') {
+        const messages = stateMessages.map( ( subscribedChannel ) => {
+           if (subscribedChannel.channelId === channelId) {
+               subscribedChannel.text = [...subscribedChannel.text, text]
+           }
+       });
+
+        return state.merge(Map({
+          ...messages,
+        }));
+    } else {
+
+        const messages = [...stateMessages, {
+            channelId: channelId,
+            text: [{
+                date: action.data.date,
+                author: action.data.author,
+                onlineUsers: action.data.onlineUsers,
+                text: action.data.text,
+                type: action.data.type
+            }],
+        }]
+
+        return state.merge(Map({
+          ...messages,
+        }));
+    }
   },
   [chatConstants.CLEAR_MESSAGES]: (state, action) => {
     return state.merge(Map({
@@ -233,16 +265,18 @@ const actionsMap = {
   /* LOAD INIT CHAT */
 
   [chatConstants.LOAD_CHAT_DATA]: (state, action) => {
+      const channels = action.data.channels;
     return state.merge(Map({
-      channels: action.data.channels,
+      channels: channels,
     }));
   },
 
   /* REFRESH USER ONLINE LIST */
 
   [chatConstants.REFRESH_ONLINE]: (state, action) => {
+      const onlineUsers = action.data.onlineUsers;
     return state.merge(Map({
-      onlineUsers: action.data.onlineUsers,
+      onlineUsers: onlineUsers,
     }));
   },
 
@@ -255,7 +289,7 @@ const actionsMap = {
               error: null,
       }
     return state.merge(Map({
-        user,
+        ...user,
     }));
   },
   [channelConstants.SUBSCRIBE_CHANNEL_FAILURE]: (state, action) => {
@@ -265,7 +299,7 @@ const actionsMap = {
               error: action.error.message,
       }
     return state.merge(Map({
-        user,
+        ...user,
     }));
   },
   [channelConstants.SUBSCRIBE_CHANNEL_SUCCESS]: (state, action) => {
@@ -275,7 +309,9 @@ const actionsMap = {
               error: null,
       }
     return state.merge(Map({
-        user,
+        user: {
+            ...user,
+        },
     }));
   },
 
@@ -288,7 +324,9 @@ const actionsMap = {
               id: action.data.id,
       }
     return state.merge(Map({
-        user,
+        user: {
+            ...user,
+        }
     }));
   },
 

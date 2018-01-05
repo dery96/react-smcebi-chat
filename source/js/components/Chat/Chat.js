@@ -1,39 +1,34 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router'
-
+import { Redirect } from 'react-router';
 import { MessageBox } from './components';
 
+
+import { urlConstants } from 'constants/url.constants';
 import { newMessage,
          clearMessages,
          loadChatAction,
          refreshOnlineAction,
          userLogoutAction,
          } from 'actions';
-import { urlConstants } from 'constants/url.constants';
+
 
 @connect(state => ({
   messages: state.app.get('messages'),
-  user: state.app.get('user'),
   channels: state.app.get('channels'),
+  user: state.app.get('user'),
 }))
 export class Chat extends Component {
     componentWillUnmount(props) {
         const { dispatch } = this.props
         this.state.ws.close();
-        dispatch(clearMessages());
     }
+
     constructor(props) {
         super(props)
-        console.log("RENDERUJE CZAT!@#$%");
         const { dispatch, user } = this.props
-        this.state = {
-            ws: null,
-            message: '',
-        }
-
         if (this.props.user) {
-            console.log(this.props.user.activeChannel);
+            console.log("renderowanie komponentu czat");
             const name = "?name=" + this.props.user.nickname;
             const token = "&token=" + this.props.user.token;
             const channel = this.props.user.activeChannel.name ?
@@ -41,7 +36,6 @@ export class Chat extends Component {
                             : '';
             this.state = {
                 ws: new WebSocket(urlConstants.CHAT_URL + name + token + channel),
-                message: ''
             }
         }
         this.state.ws.onmessage = msg => {
@@ -55,19 +49,19 @@ export class Chat extends Component {
             if (msg.type === 'ONLINE_USERS') {
                 if ( !msg.onlineUsers.includes(this.props.user.nickname) ) {
                     dispatch( userLogoutAction(this.props.user.token) );
-                    <Redirect to={ '/channels'}/>
                 } else {
                     dispatch( refreshOnlineAction(msg) )
                 }
             }
 
             if ( msg.type === 'MESSAGE' ) {
-                dispatch(newMessage(msg.data) )
+                dispatch( newMessage(msg) )
             }
         }
         this.state.ws.onclose = () => console.log("close connection");
         this.handleClick = this.handleClick.bind(this)
         this.onChange = this.onChange.bind(this)
+        this.renderActiveChannelMessages = this.renderActiveChannelMessages.bind(this);
     }
 
   handleClick(e) {
@@ -78,14 +72,24 @@ export class Chat extends Component {
 
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
-    console.log(this.state);
+  }
+
+  renderActiveChannelMessages() {
+      if (this.props.user.activeChannel.id) {
+          const test = this.props.messages.find( ( subscribedChannel ) => {
+              return subscribedChannel.channelId === this.props.user.activeChannel.id
+          });
+          console.log(test);
+      }
+
+    return []
   }
 
   render() {
-    const { dispatch, user } = this.props
+    const { dispatch, user, messages } = this.props
     return (
         <div className="message-box col">
-            <MessageBox />
+            <MessageBox messages={ this.renderActiveChannelMessages() }/>
             <div className="send-area">
               <div className="row">
                 <input className="form-control col-10"
@@ -112,8 +116,8 @@ export class Chat extends Component {
 function mapStateToProps(state) {
   return {
           messages: state.messages,
-          user: state.user,
           channels: state.channels,
+          user: state.user,
        };
 }
 

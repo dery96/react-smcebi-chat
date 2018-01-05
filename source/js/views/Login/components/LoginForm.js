@@ -61,6 +61,7 @@ export class LoginForm extends Component {
             type='text'
             name='login'
             placeholder='Enter your login'
+            autoComplete="current-password"
           />
         </div>
 
@@ -73,6 +74,7 @@ export class LoginForm extends Component {
             type='password'
             name='password'
             placeholder='Enter your password'
+            autoComplete="current-password"
           />
         </div>
         { this.props.login.error ? <span className='err'>You have entered wrong username or password!</span> : ''}

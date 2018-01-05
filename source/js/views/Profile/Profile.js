@@ -40,7 +40,7 @@ class Profile extends Component {
         <div className="profile-container">
             { this.props.user.login
                 ? <ProfileInformation user={ user } />
-            : <h3 className='col mt-4 text-center'>To see your profile you need to login first.</h3>}
+            : <h3 className='not-logged col text-center'>To see your profile you need to login first.</h3>}
         </div>
     );
   }

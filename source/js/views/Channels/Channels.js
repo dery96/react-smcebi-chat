@@ -9,6 +9,7 @@ import './Channels.scss';
 @connect(state => ({
   user: state.app.get('user'),
   channels: state.app.get('channels'),
+  messages: state.app.get('messages'),
   onlineUsers: state.app.get('onlineUsers'),
 }))
 class Channels extends Component {

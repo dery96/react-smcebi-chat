@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom'
 
 import { setActiveChannelAction } from 'actions';
 
@@ -13,10 +14,6 @@ export class ChannelList extends Component {
         const { user, channels } = this.props
         this.renderChannels = this.renderChannels.bind(this);
         this.setActiveChannel = this.setActiveChannel.bind(this);
-
-        this.state = {
-            trigger: false
-        }
     }
 
     renderChannels() {
@@ -44,11 +41,7 @@ export class ChannelList extends Component {
   setActiveChannel(name, id) {
     const { dispatch, user } = this.props;
 
-    dispatch( setActiveChannelAction( { name: name, id: id} ) )
-    let tmp = this.state.trigger
-    this.setState({ trigger: !tmp })
-
-
+    dispatch( setActiveChannelAction( { name: name, id: id } ) )
   }
   render() {
       const { user } = this.props
@@ -74,4 +67,4 @@ function mapStateToProps(state) {
         channels: state.channels,
     };
 }
-export default connect(mapStateToProps)(ChannelList);
+export default withRouter(connect(mapStateToProps)(ChannelList));
