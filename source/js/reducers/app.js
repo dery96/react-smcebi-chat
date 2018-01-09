@@ -220,41 +220,93 @@ const actionsMap = {
   /* CHAT */
 
   [chatConstants.NEW_MESSAGE]: (state, action) => {
-      const { channelId } = action.data
     /* FIND PROPER CHANNEL TO WHOM YOU WANT TO ADD NEW MESSAGE */
-    console.log("NEW_MESSAGES PREV_STATE", state.get('messages'));
     const stateMessages = state.get('messages')
-    const checkIfExists = stateMessages.find( ( subscribedChannel ) => {
-    return subscribedChannel.channelId === channelId
-    });
 
-    if (typeof checkIfExists !== 'undefined') {
-        const messages = stateMessages.map( ( subscribedChannel ) => {
-           if (subscribedChannel.channelId === channelId) {
-               subscribedChannel.text = [...subscribedChannel.text, text]
-           }
-       });
+    console.log(stateMessages);
+    if (stateMessages.length !== 0) {
+        var properChannel = stateMessages.find( channel => {
+            return channel.channelId == action.data.channelId
+        })
+        if (typeof properChannel !== 'undefined') {
+            properChannel.text = [...properChannel.text, action.data]
 
-        return state.merge(Map({
-          ...messages,
-        }));
+            stateMessages.map( (value, index, arr) => {
+                if (value.channelId === action.data.channelId) {
+                    arr[index] = properChannel
+                }
+            })
+
+            return state.merge(Map({
+              messages: [ ...stateMessages],
+          }));
+
+        } else {
+            properChannel = {
+                channelId: action.data.channelId,
+                text: action.data,
+            }
+            return state.merge(Map({
+              messages: [ ...stateMessages, properChannel],
+          }));
+        }
+
     } else {
+      const channel = {
+          channelId: action.data.channelId,
+          text: [ ...stateMessages, action.data],
+      }
+      return state.merge(Map({
+        messages: [ ...stateMessages, channel],
+    }));
+  }
 
-        const messages = [...stateMessages, {
-            channelId: channelId,
-            text: [{
-                date: action.data.date,
-                author: action.data.author,
-                onlineUsers: action.data.onlineUsers,
-                text: action.data.text,
-                type: action.data.type
-            }],
-        }]
+    /* if (typeof stateMessages[0] !== 'undefined') {
 
-        return state.merge(Map({
-          ...messages,
-        }));
+        var id1 = action.data.channelId
+        const checkIfExists = stateMessages.find( ( subscribedChannel ) => {
+        return subscribedChannel.channelId === id1
+        });
+
+        if (typeof checkIfExists !== 'undefined') {
+            console.log("Dzialam w 1");
+            console.log(action.data, action.data.channelId);
+            var id = action.data.channelId
+            const messages = stateMessages.map( ( subscribedChannel ) => {
+                console.log("subscribed", subscribedChannel);
+               if (subscribedChannel.channelId === id) {
+                   subscribedChannel = [...subscribedChannel, action.data]
+               }
+           });
+
+            return state.merge(Map({
+              messages: messages,
+            }));
+        } else {
+            console.log("Dzialam w 2");
+            console.log(action.data.channelId);
+            const channel = {
+                channelId: action.data.channelId,
+                text: [{
+                    date: action.data.date,
+                    author: action.data.author,
+                    onlineUsers: action.data.onlineUsers,
+                    text: action.data.text,
+                    type: action.data.type
+                }],
+            }
+
+            const messages = [...stateMessages, channel]
+
+            return state.merge(Map({
+              messages: messages,
+            }));
+        }
     }
+
+    return state.merge(Map({
+      ...stateMessages,
+  })); */
   },
   [chatConstants.CLEAR_MESSAGES]: (state, action) => {
     return state.merge(Map({

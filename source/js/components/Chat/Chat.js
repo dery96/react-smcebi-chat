@@ -27,15 +27,24 @@ export class Chat extends Component {
     constructor(props) {
         super(props)
         const { dispatch, user } = this.props
+        this.state = {
+            ws: null,
+            messageText: ''
+        }
         if (this.props.user) {
-            console.log("renderowanie komponentu czat");
-            const name = "?name=" + this.props.user.nickname;
+            const name = "?username=" + this.props.user.nickname;
             const token = "&token=" + this.props.user.token;
-            const channel = this.props.user.activeChannel.name ?
-                            '&channel=' + this.props.user.activeChannel.id
+
+            const channelId = this.props.user.activeChannel.id ?
+                            '&id=' + this.props.user.activeChannel.id
+                            : '';
+            const channelName = this.props.user.activeChannel.name ?
+                            '&channel_name=' + this.props.user.activeChannel.name
                             : '';
             this.state = {
-                ws: new WebSocket(urlConstants.CHAT_URL + name + token + channel),
+                ws: new WebSocket(urlConstants.CHAT_URL + name +
+                                  token + channelId + channelName),
+                messageText: '',
             }
         }
         this.state.ws.onmessage = msg => {
@@ -66,7 +75,17 @@ export class Chat extends Component {
 
   handleClick(e) {
       e.preventDefault();
-      this.state.ws.send(this.state.message);
+
+      if (this.state.messageText && this.state.messageText !== '') {
+          const data = JSON.stringify({
+            channelId: "" + this.props.user.activeChannel.id,
+            username: this.props.user.nickname,
+            message: this.state.messageText
+          })
+          console.log("send: ", data);
+          this.state.ws.send( data );
+          this.setState({ messageText: '' })
+      }
 
   }
 
@@ -77,9 +96,9 @@ export class Chat extends Component {
   renderActiveChannelMessages() {
       if (this.props.user.activeChannel.id) {
           const test = this.props.messages.find( ( subscribedChannel ) => {
+
               return subscribedChannel.channelId === this.props.user.activeChannel.id
           });
-          console.log(test);
       }
 
     return []
@@ -89,16 +108,20 @@ export class Chat extends Component {
     const { dispatch, user, messages } = this.props
     return (
         <div className="message-box col">
-            <MessageBox messages={ this.renderActiveChannelMessages() }/>
+            { typeof this.props.user.activeChannel !== "undefined" ?
+                <MessageBox messages={ this.props.messages } activeChannel={ this.props.user.activeChannel }/>
+                : ''
+             }
             <div className="send-area">
               <div className="row">
                 <input className="form-control col-10"
-                    value={ this.state.message }
+
                     className='form-control'
                     onChange={ this.onChange }
                     type='text'
-                    name='message'
-                    placeholder='Enter your login'
+                    name='messageText'
+                    placeholder='Write text message...'
+                    value={ this.state.messageText }
                     />
                 <button type="button"
                         name="button"

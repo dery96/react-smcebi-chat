@@ -8,24 +8,36 @@ export class MessageBox extends Component {
         super(props);
     }
     renderMessages() {
-        const { messages } = this.props
+        const { messages, activeChannel } = this.props
 
-        console.log("TAKIE MESSAGES DOSTALEM", this.props.messages)
-        if (typeof this.props.messages != 'undefined') {
-            return this.props.messages.map((message, key) => {
+        if ( typeof this.props.messages !== 'undefined' ) {
+            var channelMessages = this.props.messages.find( channel => {
+                console.log("pokolei channele", channel.channelId, "===", ''+activeChannel.id);
+                return channel.channelId === ''+activeChannel.id
+            });
+
+        console.log(channelMessages);
+
+        /* console.log(channelMessages, "channe;l"); */
+
+        if (typeof channelMessages !== 'undefined') {
+            console.log("channelMessages !== undefined");
+            channelMessages = [...channelMessages.text]
+            return channelMessages.map( (msg, key) => {
                 return(
-                    <Message text={ message.text }
-                             date={ message.date }
-                             author={ message.author }
+                    <Message text={ msg.text }
+                             date={ msg.date }
+                             author={ msg.author }
                              key={key}
                     />
                 );
             });
         }
+        }
     }
 
   render() {
-    const { messages } = this.props
+    const { messages, activeChannel } = this.props
     return (
         <div className="row messages">
             { this.renderMessages() }
