@@ -1,0 +1,13 @@
+@import "./source/scss/base/_variable";
+
+
+.new-channel-container {
+    .new-channel {
+        background: $white;
+        margin-top: 10em;
+        padding-top: 2em;
+        padding-bottom: 2em;
+        text-align: center;
+        border-radius: .2em;
+    }
+}

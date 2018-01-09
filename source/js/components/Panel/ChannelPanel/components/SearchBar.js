@@ -61,13 +61,7 @@ export class SearchBar extends Component {
 
     handleSubscribe(channel_id, name) {
         const { dispatch, user } = this.props;
-
-        /*const filterSubscribedChannels = this.props.user.subscribedChannels.data
-              .filter((channel, index, channels) => {
-                      return channel.name.toString().toLowerCase()
-                             .includes(name.toString().toLowerCase())
-        })*/
-
+        
         dispatch( subscribeChannelAction(channel_id, this.props.user.id, this.props.user.token) )
     }
     render () {

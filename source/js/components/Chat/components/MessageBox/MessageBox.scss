@@ -5,11 +5,31 @@
   background: white;
   border-radius: .2em;
 
+  .row {
+      overflow: auto;
+      max-height: 30em;
+  }
+
   .messages {
     min-height: 60vh;
     @media (min-width: 768px) {
         min-height: 40vh;
     }
+
+    overflow: auto;
+  }
+  .not-in-channel {
+      justify-content: center;
+      flex-flow: row !important;
+      align-items: center;
+      text-align: center;
+      font-size: 1.2rem;
+      font-weight: 400;
+
+      .stronger {
+          font-weight: 500;
+          padding: 0 5px 0 5px;
+      }
   }
     .row {
         flex-flow: column;

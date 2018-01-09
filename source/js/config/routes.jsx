@@ -4,6 +4,7 @@ import { Route, Switch } from 'react-router-dom';
 import NotFound from 'views/NotFound';
 import Dashboard from 'views/Dashboard';
 import Channels from 'views/Channels/Channels';
+import ChannelNew from 'views/ChannelNew/ChannelNew';
 import About from 'views/About';
 import Profile from 'views/Profile/Profile';
 import Login from 'views/Login/Login';
@@ -16,6 +17,7 @@ const publicPath = '/';
 export const routeCodes = {
   DASHBOARD: publicPath,
   CHANNELS: `${ publicPath }channels`,
+  CHANNELS_NEW: `${ publicPath }new/channel`,
   ABOUT: `${ publicPath }about`,
   PROFILE: `${ publicPath }profile`,
   LOGIN: `${ publicPath }login`,
@@ -50,6 +52,7 @@ export default () => (
   <Switch>
     <RouteLayout exact path={ publicPath } component={ Dashboard } />
     <RouteLayout path={ routeCodes.CHANNELS } component={ Channels } />
+    <RouteLayout path={ routeCodes.CHANNELS_NEW } component={ ChannelNew } />
     <RouteLayout path={ routeCodes.ABOUT } component={ About } />
     <RouteLayout path={ routeCodes.PROFILE } component={ Profile } />
     <RouteWithoutLayout path={ routeCodes.LOGIN } component={ Login } />

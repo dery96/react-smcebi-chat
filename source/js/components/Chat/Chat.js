@@ -19,9 +19,16 @@ import { newMessage,
   user: state.app.get('user'),
 }))
 export class Chat extends Component {
+
+    componentWillMount() {
+        document.addEventListener('keydown', this.handleKeyPress);
+    }
+
     componentWillUnmount(props) {
         const { dispatch } = this.props
         this.state.ws.close();
+
+        document.removeEventListener('keydown', this.handleKeyPress);
     }
 
     constructor(props) {
@@ -70,12 +77,21 @@ export class Chat extends Component {
         this.state.ws.onclose = () => console.log("close connection");
         this.handleClick = this.handleClick.bind(this)
         this.onChange = this.onChange.bind(this)
-        this.renderActiveChannelMessages = this.renderActiveChannelMessages.bind(this);
+        this.handleKeyPress = this.handleKeyPress.bind(this);
     }
+
+  handleKeyPress(e) {
+      if (e.keyCode === 13 ) {
+        this.sendMessage();
+      }
+  }
 
   handleClick(e) {
       e.preventDefault();
+      this.sendMessage();
+  }
 
+  sendMessage() {
       if (this.state.messageText && this.state.messageText !== '') {
           const data = JSON.stringify({
             channelId: "" + this.props.user.activeChannel.id,
@@ -86,31 +102,19 @@ export class Chat extends Component {
           this.state.ws.send( data );
           this.setState({ messageText: '' })
       }
-
   }
 
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
 
-  renderActiveChannelMessages() {
-      if (this.props.user.activeChannel.id) {
-          const test = this.props.messages.find( ( subscribedChannel ) => {
-
-              return subscribedChannel.channelId === this.props.user.activeChannel.id
-          });
-      }
-
-    return []
-  }
-
   render() {
     const { dispatch, user, messages } = this.props
     return (
         <div className="message-box col">
-            { typeof this.props.user.activeChannel !== "undefined" ?
+            { this.props.user.activeChannel.id !== null ?
                 <MessageBox messages={ this.props.messages } activeChannel={ this.props.user.activeChannel }/>
-                : ''
+                : <p className="row messages not-in-channel"> First you <span className='stronger'>must join</span> to any channel first </p>
              }
             <div className="send-area">
               <div className="row">
@@ -123,7 +127,7 @@ export class Chat extends Component {
                     placeholder='Write text message...'
                     value={ this.state.messageText }
                     />
-                <button type="button"
+                <button type="submit"
                         name="button"
                         className="btn col-2"
                         onClick = { this.handleClick }>

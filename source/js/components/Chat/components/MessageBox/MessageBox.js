@@ -9,19 +9,12 @@ export class MessageBox extends Component {
     }
     renderMessages() {
         const { messages, activeChannel } = this.props
-
         if ( typeof this.props.messages !== 'undefined' ) {
             var channelMessages = this.props.messages.find( channel => {
-                console.log("pokolei channele", channel.channelId, "===", ''+activeChannel.id);
                 return channel.channelId === ''+activeChannel.id
             });
 
-        console.log(channelMessages);
-
-        /* console.log(channelMessages, "channe;l"); */
-
         if (typeof channelMessages !== 'undefined') {
-            console.log("channelMessages !== undefined");
             channelMessages = [...channelMessages.text]
             return channelMessages.map( (msg, key) => {
                 return(

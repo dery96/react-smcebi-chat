@@ -11,6 +11,15 @@
     padding: .2em 15px .2em 15px;
     width: 100%;
     text-align: right;
+    .click {
+        cursor: pointer;
+        &:hover, &:hover:active, &:active, &:focus, &:focus:active {
+          text-decoration: underline;
+        }
+        a {
+            color: $white;
+        }
+    }
   }
   .no-channels {
       padding: .6em 15px .6em 15px;
@@ -24,6 +33,11 @@
       font-size: .9rem;
       span {
           padding-top: .2em;
+          cursor: pointer;
+
+          &:hover, &:hover:active, &:active, &:focus, &:focus:active {
+            font-weight: 500;
+          }
       }
   }
   .online-users {

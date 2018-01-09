@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Link, NavLink } from 'react-router-dom';
 
 import { ChannelList } from './components/ChannelList';
 import { ActiveUsers } from './components/ActiveUsers';
@@ -10,6 +11,14 @@ import './ChannelPanel.scss';
 export class ChannelPanel extends Component {
     constructor(props) {
         super(props)
+        this.newChannelClick = this.newChannelClick.bind(this)
+    }
+
+
+    newChannelClick() {
+
+        console.log("chcesz utworzyc nowy kanał");
+
     }
   render() {
     const { onlineUsers, user, channels } = this.props;
@@ -19,7 +28,7 @@ export class ChannelPanel extends Component {
             Panel
         </div>
         <SearchBar channels={ channels } user={ user } />
-        <div className='channel-new'>Or create new <strong>instead!</strong></div>
+        <div className='channel-new'>Or create <span className='click'><NavLink to={`/new/channel`}>new <strong>instead!</strong></NavLink></span></div>
         <ChannelList />
         <ActiveUsers onlineUsers={ onlineUsers } />
       </div>

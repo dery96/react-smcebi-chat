@@ -48,6 +48,7 @@ const initialState = Map({
   onlineUsers: [],
   messages: [],
   channels: [],
+  newChannel: {}
 });
 
 const actionsMap = {
@@ -108,6 +109,7 @@ const actionsMap = {
         onlineUsers: [],
         messages: [],
         channels: [],
+        newChannel: {}
     }));
   },
 
@@ -260,53 +262,6 @@ const actionsMap = {
         messages: [ ...stateMessages, channel],
     }));
   }
-
-    /* if (typeof stateMessages[0] !== 'undefined') {
-
-        var id1 = action.data.channelId
-        const checkIfExists = stateMessages.find( ( subscribedChannel ) => {
-        return subscribedChannel.channelId === id1
-        });
-
-        if (typeof checkIfExists !== 'undefined') {
-            console.log("Dzialam w 1");
-            console.log(action.data, action.data.channelId);
-            var id = action.data.channelId
-            const messages = stateMessages.map( ( subscribedChannel ) => {
-                console.log("subscribed", subscribedChannel);
-               if (subscribedChannel.channelId === id) {
-                   subscribedChannel = [...subscribedChannel, action.data]
-               }
-           });
-
-            return state.merge(Map({
-              messages: messages,
-            }));
-        } else {
-            console.log("Dzialam w 2");
-            console.log(action.data.channelId);
-            const channel = {
-                channelId: action.data.channelId,
-                text: [{
-                    date: action.data.date,
-                    author: action.data.author,
-                    onlineUsers: action.data.onlineUsers,
-                    text: action.data.text,
-                    type: action.data.type
-                }],
-            }
-
-            const messages = [...stateMessages, channel]
-
-            return state.merge(Map({
-              messages: messages,
-            }));
-        }
-    }
-
-    return state.merge(Map({
-      ...stateMessages,
-  })); */
   },
   [chatConstants.CLEAR_MESSAGES]: (state, action) => {
     return state.merge(Map({
@@ -379,6 +334,25 @@ const actionsMap = {
         user: {
             ...user,
         }
+    }));
+  },
+
+  /* CREATE NEW CHANNEL */
+
+  [channelConstants.NEW_CHANNEL_FAILURE]: (state, action) => {
+    return state.merge(Map({
+        newChannel: {
+            error: action.error.message,
+            status: action.error.status,
+        }
+    }));
+  },
+  [channelConstants.NEW_CHANNEL_SUCCESS]: (state, action) => {
+    return state.merge(Map({
+      newChannel: {
+          error: null,
+          status: action.data.status,
+      }
     }));
   },
 

@@ -25,7 +25,6 @@ export class ChannelList extends Component {
                 })
                 return (
                     <span key={ properChannel.id }
-                          name={ properChannel.name }
                         onClick={ () => this.setActiveChannel(properChannel.name, properChannel.id) }
                         >
                         { this.props.user.activeChannel.name === properChannel.name
