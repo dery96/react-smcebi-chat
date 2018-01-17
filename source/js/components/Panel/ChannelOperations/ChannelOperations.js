@@ -16,6 +16,7 @@ export class ChannelOperations extends Component {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
+    this.findProperActiveChannel = this.findProperActiveChannel.bind(this);
   }
 
   handleClick(e) {
@@ -23,15 +24,32 @@ export class ChannelOperations extends Component {
     dispatch( closeWsConnection() );
   }
 
+  findProperActiveChannel() {
+    const { messages, user } = this.props
+    if ( typeof this.props.messages !== 'undefined' ) {
+        var channelMessages = this.props.messages.find( channel => {
+            return channel.channelId === ''+this.props.user.activeChannel.id
+        });
+
+        if (typeof channelMessages !== 'undefined') {
+            const onlineChannelUsers = [...channelMessages.text].pop()
+            if ( typeof onlineChannelUsers !== 'undefined' ) {
+                return onlineChannelUsers.onlineChannelUsers
+            }
+        }
+    }
+    return [];
+  }
+
   render() {
-    const { dispatch, user, channels } = this.props
+    const { dispatch, user, channels, messages } = this.props
     return (
       <div className='operations'>
         <div className='channel-title'>
           { this.props.user.activeChannel.name }
       </div>
         <ChannelActions />
-        <ChannelUsers />
+        <ChannelUsers users={this.findProperActiveChannel()} />
         <button className="col disconnect btn"
                 type="submit"
                 name="button"

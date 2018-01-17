@@ -6,6 +6,7 @@ import './MessageBox.scss';
 export class MessageBox extends Component {
     constructor(props) {
         super(props);
+        this.scrollToBottom = this.scrollToBottom.bind(this);
     }
     renderMessages() {
         const { messages, activeChannel } = this.props
@@ -17,6 +18,7 @@ export class MessageBox extends Component {
         if (typeof channelMessages !== 'undefined') {
             channelMessages = [...channelMessages.text]
             return channelMessages.map( (msg, key) => {
+                this.scrollToBottom()
                 return(
                     <Message text={ msg.text }
                              date={ msg.date }
@@ -26,14 +28,23 @@ export class MessageBox extends Component {
                 );
             });
         }
+
+        }
+    }
+    scrollToBottom() {
+        const box = document.getElementById('box');
+        if (box && box !== 'null') {
+            box.scrollTop = box.scrollHeight + 99;
         }
     }
 
   render() {
     const { messages, activeChannel } = this.props
     return (
-        <div className="row messages">
+        <div className="row messages" id='box'>
+            { this.scrollToBottom() }
             { this.renderMessages() }
+            { this.scrollToBottom() }
         </div>
     );
   }

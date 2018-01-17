@@ -123,11 +123,11 @@ export class ChannelNew extends Component {
               {this.props.newChannel.status === 202 && (
                 <Redirect to={ '/profile'}/>
               )}
-              <span className='go-back'>
+              <p className='go-back'>
                   <NavLink to={routeCodes.CHANNELS}>
                     { 'go Back!' }
                   </NavLink>
-              </span>
+              </p>
 
             </form>
         );

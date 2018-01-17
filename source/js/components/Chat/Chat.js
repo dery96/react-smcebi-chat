@@ -37,7 +37,8 @@ export class Chat extends Component {
         super(props)
         const { dispatch, user, ws } = this.props
         this.state = {
-            messageText: ''
+            messageText: '',
+            errNoConnection: false,
         }
         if (this.props.user) {
             dispatch( wsConnectionAction(
@@ -66,9 +67,12 @@ export class Chat extends Component {
 
   sendMessage() {
       const { dispatch, user, messages, ws } = this.props
-      if (this.state.messageText && this.state.messageText !== '') {
+      if (this.state.messageText && this.state.messageText !== '' && this.props.ws) {
           dispatch(wsSendAction( this.state.messageText ))
-          this.setState({ messageText: '' })
+          this.setState({ messageText: '', errNoConnection: false })
+      }
+      if (!this.props.ws) {
+          this.setState({ messageText: '', errNoConnection: true })
       }
   }
 
@@ -80,7 +84,7 @@ export class Chat extends Component {
     const { dispatch, user, messages, ws } = this.props
     return (
         <div className="message-box col">
-            { this.props.user.activeChannel.id !== null ?
+            { this.props.user.activeChannel.id !== null && this.props.ws ?
                 <MessageBox messages={ this.props.messages } activeChannel={ this.props.user.activeChannel }/>
                 : <p className="row messages not-in-channel"> First you <span className='stronger'>must join</span> to any channel first </p>
              }
@@ -103,6 +107,7 @@ export class Chat extends Component {
                 </button>
               </div>
             </div>
+            { this.state.errNoConnection ? <span className='row err'>You can't send message before join to any channel</span> : '' }
         </div>
     );
   }

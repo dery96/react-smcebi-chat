@@ -39,6 +39,7 @@ class Channels extends Component {
             {this.props.ws && this.props.user.activeChannel.id ? (
               <ChannelOperations user={ this.props.user }
                                  channels={ this.props.channels }
+                                 messages={ this.props.messages }
               />
 
             ) : (
@@ -56,18 +57,9 @@ class Channels extends Component {
     return (
       <div className='channel'>
           { this.props.user.token
-              ? <div><div className='row'>
+              ? <div className='row'>
                   { this.switchPanelControl() }
                   <Chat />
-                </div>
-                <div className="row">
-                    <button
-                        name='panel'
-                        onClick={ this.onClick }
-                    >
-                        SwitchPanel
-                    </button>
-                </div>
                 </div>
           : <div className='row'><h3 className='col mt-4 text-center not-logged'>To use it you must login first!</h3></div>}
       </div>
