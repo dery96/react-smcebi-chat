@@ -10,6 +10,8 @@ import { newMessage,
          loadChatAction,
          refreshOnlineAction,
          userLogoutAction,
+         wsConnectionAction,
+         wsSendAction,
          } from 'actions';
 
 
@@ -17,6 +19,7 @@ import { newMessage,
   messages: state.app.get('messages'),
   channels: state.app.get('channels'),
   user: state.app.get('user'),
+  ws: state.app.get('ws'),
 }))
 export class Chat extends Component {
 
@@ -26,57 +29,27 @@ export class Chat extends Component {
 
     componentWillUnmount(props) {
         const { dispatch } = this.props
-        this.state.ws.close();
-
+        /* this.state.ws.connection.close(); */
         document.removeEventListener('keydown', this.handleKeyPress);
     }
 
     constructor(props) {
         super(props)
-        const { dispatch, user } = this.props
+        const { dispatch, user, ws } = this.props
         this.state = {
-            ws: null,
             messageText: ''
         }
         if (this.props.user) {
-            const name = "?username=" + this.props.user.nickname;
-            const token = "&token=" + this.props.user.token;
-
-            const channelId = this.props.user.activeChannel.id ?
-                            '&id=' + this.props.user.activeChannel.id
-                            : '';
-            const channelName = this.props.user.activeChannel.name ?
-                            '&channel_name=' + this.props.user.activeChannel.name
-                            : '';
-            this.state = {
-                ws: new WebSocket(urlConstants.CHAT_URL + name +
-                                  token + channelId + channelName),
-                messageText: '',
-            }
+            dispatch( wsConnectionAction(
+                this.props.user.nickname,
+                this.props.user.token,
+                this.props.user.activeChannel.id,
+                this.props.user.activeChannel.name
+            ));
         }
-        this.state.ws.onmessage = msg => {
-            msg = JSON.parse(msg.data);
 
-            if (msg.type === 'CHANNELS') {
-                msg.channels = JSON.parse(msg.channels);
-                dispatch( loadChatAction(msg) )
-            }
-
-            if (msg.type === 'ONLINE_USERS') {
-                if ( !msg.onlineUsers.includes(this.props.user.nickname) ) {
-                    dispatch( userLogoutAction(this.props.user.token) );
-                } else {
-                    dispatch( refreshOnlineAction(msg) )
-                }
-            }
-
-            if ( msg.type === 'MESSAGE' ) {
-                dispatch( newMessage(msg) )
-            }
-        }
-        this.state.ws.onclose = () => console.log("close connection");
-        this.handleClick = this.handleClick.bind(this)
-        this.onChange = this.onChange.bind(this)
+        this.handleClick = this.handleClick.bind(this);
+        this.onChange = this.onChange.bind(this);
         this.handleKeyPress = this.handleKeyPress.bind(this);
     }
 
@@ -92,14 +65,9 @@ export class Chat extends Component {
   }
 
   sendMessage() {
+      const { dispatch, user, messages, ws } = this.props
       if (this.state.messageText && this.state.messageText !== '') {
-          const data = JSON.stringify({
-            channelId: "" + this.props.user.activeChannel.id,
-            username: this.props.user.nickname,
-            message: this.state.messageText
-          })
-          console.log("send: ", data);
-          this.state.ws.send( data );
+          dispatch(wsSendAction( this.state.messageText ))
           this.setState({ messageText: '' })
       }
   }
@@ -109,7 +77,7 @@ export class Chat extends Component {
   }
 
   render() {
-    const { dispatch, user, messages } = this.props
+    const { dispatch, user, messages, ws } = this.props
     return (
         <div className="message-box col">
             { this.props.user.activeChannel.id !== null ?
@@ -145,6 +113,7 @@ function mapStateToProps(state) {
           messages: state.messages,
           channels: state.channels,
           user: state.user,
+          ws: state.ws,
        };
 }
 

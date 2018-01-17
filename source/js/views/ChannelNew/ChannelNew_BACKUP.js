@@ -135,7 +135,7 @@ export class ChannelNew extends Component {
 
     render () {
         return (
-            <div className="new-channel-container">
+            <div>
                 { this.props.user.token
                     ? <div className='new-channel'>
                         <div className="row">

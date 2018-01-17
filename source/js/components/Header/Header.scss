@@ -40,17 +40,22 @@
             flex-flow: column;
             align-items: center;
             p.guest {
-                margin: 0 0 0 .7em;
-                font-size: 0.8rem;
+                margin: .2em 0 0 .7em;
+                font-size: 0.6rem;
             }
             @media (min-width: 486px) {
                 justify-content: flex-end;
-                margin: 0;
+                margin: 1em auto;
+                p.guest {
+                    margin: 0 0 0 .7em;
+                    font-size: 0.8rem;
+                }
             }
             @media (min-width: 768px) {
                 flex-flow: row wrap;
             }
             @media (min-width: 992px) {
+                margin: 0;
                 p.guest {
                     margin-left: 2em;
                     font-size: 0.9rem;

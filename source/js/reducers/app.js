@@ -48,7 +48,8 @@ const initialState = Map({
   onlineUsers: [],
   messages: [],
   channels: [],
-  newChannel: {}
+  newChannel: {},
+  ws: null,
 });
 
 const actionsMap = {
@@ -109,7 +110,8 @@ const actionsMap = {
         onlineUsers: [],
         messages: [],
         channels: [],
-        newChannel: {}
+        newChannel: {},
+        ws: null,
     }));
   },
 
@@ -141,6 +143,7 @@ const actionsMap = {
         onlineUsers: [],
         messages: [],
         channels: [],
+        ws: null,
     }));
   },
   [userConstants.LOGIN_FAILURE]: (state, action) => {
@@ -225,7 +228,7 @@ const actionsMap = {
     /* FIND PROPER CHANNEL TO WHOM YOU WANT TO ADD NEW MESSAGE */
     const stateMessages = state.get('messages')
 
-    console.log(stateMessages);
+    /* console.log(stateMessages); */
     if (stateMessages.length !== 0) {
         var properChannel = stateMessages.find( channel => {
             return channel.channelId == action.data.channelId
@@ -281,7 +284,7 @@ const actionsMap = {
   /* REFRESH USER ONLINE LIST */
 
   [chatConstants.REFRESH_ONLINE]: (state, action) => {
-      const onlineUsers = action.data.onlineUsers;
+      const onlineUsers = action.data;
     return state.merge(Map({
       onlineUsers: onlineUsers,
     }));
@@ -356,6 +359,37 @@ const actionsMap = {
     }));
   },
 
+
+  /* INIT WEBSOCKET CONNECTION */
+
+  [chatConstants.OPEN_WS_CONNECTION]: (state, action) => {
+      const wse = action.data.ws
+    return state.merge(Map({
+        ws: wse,
+    }));
+  },
+
+  [chatConstants.CLOSE_WS_CONNECTION]: (state, action) => {
+    return state.merge(Map({
+        ws: null,
+    }));
+  },
+
+  [chatConstants.WS_SEND_MESSAGE]: (state, action) => {
+    const ws = state.get('ws');
+    if (ws) {
+        const usere = state.get('user');
+        const data = JSON.stringify({
+                channelId: "" + usere.activeChannel.id,
+                username: usere.nickname,
+                message: action.data.msg
+              })
+        ws.send( data );
+    }
+    return state.merge(Map({
+
+    }));
+  },
 };
 
 export default function reducer(state = initialState, action = {}) {

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom'
 
-import { setActiveChannelAction } from 'actions';
+import { setActiveChannelAction, wsConnectionAction } from 'actions';
 
 @connect(state => ({
   channels: state.app.get('channels'),
@@ -40,7 +40,13 @@ export class ChannelList extends Component {
   setActiveChannel(name, id) {
     const { dispatch, user } = this.props;
 
-    dispatch( setActiveChannelAction( { name: name, id: id } ) )
+    dispatch( setActiveChannelAction( { name: name, id: id } ) );
+    dispatch( wsConnectionAction(
+        this.props.user.nickname,
+        this.props.user.token,
+        this.props.user.activeChannel.id,
+        this.props.user.activeChannel.name
+    ));
   }
   render() {
       const { user } = this.props

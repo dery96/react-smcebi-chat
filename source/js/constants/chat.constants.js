@@ -4,6 +4,10 @@ export const chatConstants = {
 
     LOAD_CHAT_DATA: 'LOAD_CHAT_DATA',
     REFRESH_ONLINE: 'REFRESH_ONLINE',
+
+    OPEN_WS_CONNECTION: 'OPEN_WS_CONNECTION',
+    CLOSE_WS_CONNECTION: 'CLOSE_WS_CONNECTION',
+    WS_SEND_MESSAGE: 'WS_SEND_MESSAGE',
 };
 
 export default chatConstants;

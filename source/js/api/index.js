@@ -67,12 +67,12 @@ function subscribeChannel(channel_id, user_id, token) {
         )
 }
 
-function newChannel(name, size, user_id, token) {
+function newChannel(name, size, owner_id, token) {
     return axios.post( urlConstants.NEW_CHANNEL_URL,
             queryForParams({
                 name: name,
                 size: size,
-                user_id: user_id,
+                owner_id: owner_id,
                 token: token,
             }),
             urlConstants.REQUEST_CONFIG,

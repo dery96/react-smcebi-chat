@@ -11,12 +11,14 @@ import './Channels.scss';
   channels: state.app.get('channels'),
   messages: state.app.get('messages'),
   onlineUsers: state.app.get('onlineUsers'),
-  ws: state.app.get('ws'),
 }))
 class Channels extends Component {
   constructor(props) {
     super(props);
     const { dispatch, user, onlineUsers } = this.props
+    this.state = {
+      panel: false,
+    };
 
     this.onClick = this.onClick.bind(this);
     this.switchPanelControl = this.switchPanelControl.bind(this);
@@ -36,10 +38,8 @@ class Channels extends Component {
   switchPanelControl() {
       return (
           <div className='left-panel col-xs-4 col-sm-3'>
-            {this.props.ws && this.props.user.activeChannel.id ? (
-              <ChannelOperations user={ this.props.user }
-                                 channels={ this.props.channels }
-              />
+            {this.state.panel ? (
+              <ChannelOperations />
 
             ) : (
               <ChannelPanel user={ this.props.user }
@@ -52,23 +52,22 @@ class Channels extends Component {
   }
 
   render() {
-    const { dispatch, user, channels, ws } = this.props
+    const { dispatch, user, channels } = this.props
     return (
       <div className='channel'>
           { this.props.user.token
               ? <div><div className='row'>
                   { this.switchPanelControl() }
                   <Chat />
-                </div>
-                <div className="row">
-                    <button
-                        name='panel'
-                        onClick={ this.onClick }
-                    >
-                        SwitchPanel
-                    </button>
-                </div>
-                </div>
+              </div>
+              <div className="row">
+                  <button
+                      name='panel'
+                      onClick={ this.onClick }
+                  >
+                      SwitchPanel
+                  </button>
+              </div></div>
           : <div className='row'><h3 className='col mt-4 text-center not-logged'>To use it you must login first!</h3></div>}
       </div>
 
@@ -79,8 +78,7 @@ function mapStateToProps(state) {
     return {
         user: state.user,
         channels: state.channels,
-        onlineUsers: state.onlineUsers,
-        ws: state.ws,
+        onlineUsers: state.onlineUsers
     };
 }
 export default connect(mapStateToProps)(Channels);
