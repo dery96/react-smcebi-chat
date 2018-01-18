@@ -83,7 +83,7 @@ export class LoginForm extends Component {
               className='btn'
               type='submit'
               >
-            Sign up
+            Sign in
           </button>
         </div>
         {this.props.login.status === 202 && (
