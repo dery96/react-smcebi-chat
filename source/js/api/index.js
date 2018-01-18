@@ -17,6 +17,7 @@ function testAsync() {
 }
 
 function userLogin(username, password) {
+    console.log(username, password);
     return axios.post( urlConstants.LOGIN_URL,
             queryForParams({
                 login: username,
