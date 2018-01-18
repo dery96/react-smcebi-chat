@@ -41,8 +41,6 @@ export const wsConnectionAction = (username, token, channelId, channelName) => {
 
     channelId = channelId ? '&id=' + channelId : '';
     channelName = channelName ? '&channel_name=' + channelName : '';
-    console.log(urlConstants.CHAT_URL + username +
-                      token + channelId + channelName);
     const type = channelId && channelName ? 'CHANNEL_CONNECT' : 'BASIC_FETCH';
 
     return dispatch => {
@@ -70,10 +68,6 @@ export const wsConnectionAction = (username, token, channelId, channelName) => {
             if (msg.type === 'MESSAGE') {
                 dispatch( newMessage(msg) )
             }
-            console.log(msg.type);
-            /*
-            console.log(msg);
-            dispatch( refreshOnlineAction( msg.onlineUsers))*/
         }
         wsConn.onclose = () => console.log("close connection");
 
